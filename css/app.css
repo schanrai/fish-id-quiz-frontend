@@ -1,0 +1,4 @@
+/* this is the clearfix */
+.group {
+  display: flow-root;
+}
