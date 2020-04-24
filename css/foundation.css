@@ -1654,7 +1654,7 @@ textarea {
   margin-bottom: -0.625rem; }
   @media print, screen and (min-width: 40em) {
     .grid-margin-y {
-      margin-top: -0.9375rem;
+      /* margin-top: -0.9375rem; */
       margin-bottom: -0.9375rem; } }
   .grid-margin-y > .cell {
     height: calc(100% - 1.25rem);
