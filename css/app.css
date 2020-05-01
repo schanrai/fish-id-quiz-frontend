@@ -3,6 +3,10 @@
   display: flow-root;
 }
 
+.group p {
+  margin-bottom: 0;
+}
+
 ul.menu {
   margin-right: 30px;
 }
@@ -11,6 +15,8 @@ a.topbar-responsive-logo h3 {
   margin-left: 20px;
   font-weight: bold;
 }
+
+
 
 /* copy from block on fsite */
 .topbar-responsive {

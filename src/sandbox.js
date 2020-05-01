@@ -1680,3 +1680,10 @@ function shuffleQuestions(array) {
 
 let currentQuestionSet = shuffleQuestions(questionSet)
 console.log(currentQuestionSet)
+
+
+
+
+// fetch(`${BACKEND_URL}/api/v1/fish`)
+//   .then(response => response.json())
+//   .then(parsedResponse => console.log(parsedResponse));
