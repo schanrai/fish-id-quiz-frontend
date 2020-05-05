@@ -29,7 +29,6 @@
       </div>
     </nav>
 
-
     <!-- End Nav Bar -->
     <div class="grid-container full">
       <!-- start feedback/Error area -->
@@ -41,10 +40,34 @@
       </div>
       <!-- start mainimage + counter section-->
       <div class="grid-x grid-margin-y align-center">
-        <div class="cell medium-7">
+        <div class="cell medium-8">
             <!--mainimage-->
             <img class="thumbnail" src="images/fishinglinespinfish.png">
             <button class="expanded button" id="start-continue">New Game</button>
+        <!-- radio buttons/answers -->
+        <form data-abide novalidate id="radio-buttons" class="hide">
+         <button class="expanded button" type="submit" id="submit">Submit</button>
+         <div class="grid-x medium-up-2 ">
+            <!-- <legend>Radio Group</legend> -->
+              <div class="cell">
+                <input type="radio" name="choiceOne" id="choiceOne" value="choiceOne">
+                <label for="choiceOne">One</label>
+              </div>
+              <div class="cell">
+                <input required type="radio" name="choiceTwo" id="choiceTwo" value="choiceTwo">
+                <label for="choiceTwo">Two</label>
+              </div>
+              <div class="cell">
+                <input type="radio" name="choiceThree" id="choiceThree" value="choiceThree">
+                <label for="choiceThree">Three</label>
+              </div>
+              <div class="cell">
+                <input type="radio" name="choiceFour" id="choiceFour" value="choiceFour">
+                <label for="choiceFour">Four</label>
+              </div>
+         </div>
+        </form>
+
           <!--counter + stats-->
           <div class="callout">
             <div class="group">
