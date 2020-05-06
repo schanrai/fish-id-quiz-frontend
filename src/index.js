@@ -30,7 +30,6 @@ class Game {
 
 // INITIAL FETCH
   gameFetch(){
-   console.log("into the fetch function")
    fetch(FISH_URL, { method: 'GET' })
     .then(resp => resp.json())
     .then(fishDataJSON => console.log(fishDataJSON))
@@ -43,9 +42,12 @@ class Game {
     startContBtn.classList.add('hide')
     radioButtons.classList.remove('hide')
     //image.src = "https://myfwc.com/media/13792/bigeyescad.jpg"
+    //instantiate the set of questions with the fishDataJSON
   }
-
 }
+
+//gameListeners() for every user interaction, with if statements?
+
 
 
 //
