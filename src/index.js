@@ -9,15 +9,16 @@ const questionCounter = document.querySelector('#question-count')
 const radioButtons = document.querySelector('#radio-buttons')
 
 
-
 document.addEventListener('DOMContentLoaded', () => {
-// TRIGGER NEW GAME
-    startContBtn.addEventListener('click', () => {
-      let newGame = new Game()
-    })
-//DND-this ends the whole callback function for the DOMContentLoaded
+  initGame()
 });
 
+ function initGame(){
+   startContBtn.innerText = "Start Game"
+   startContBtn.addEventListener('click', () => {
+      let newGame = new Game()
+    })
+ }
 
 // GAME CLASS
 class Game {
@@ -27,14 +28,12 @@ class Game {
    this.gameFetch()
    }
 
-// INITIAL FETCH
+// Initial Fetch from Fish Table
   gameFetch(){
    fetch(FISH_URL, { method: 'GET' })
     .then(resp => resp.json())
     .then(fishDataJSON => {
       let questionSet = new Questions(fishDataJSON)
-      //console.log(fishDataJSON))
-    //instantiate the set of questions with the fishDataJSON
     //the questions must be instanciated before gameInitRender can be triggered
     this.gameInitRender()})
  }
@@ -56,9 +55,7 @@ class Questions {
 
 
   constructor(fishDataJSON) {
-    this.correctChoice = 0
-    //this.fish = [...fishDataJSON];
-    this.fishCopy = [...fishDataJSON];
+    this.fish = [...fishDataJSON];
     this.getRandomQuestionsFromArray(20)
     }
 
@@ -66,22 +63,24 @@ class Questions {
     getRandomQuestionsFromArray(numItems) {
       const questions = [];
       while (questions.length < numItems) {
-        const index = Math.floor(Math.random() * this.fishCopy.length);
-        const element = this.fishCopy.slice(index)[0];
-        if (questions.includes(element)){
-          continue
+        const index = Math.floor(Math.random() * this.fish.length);
+        const element = this.fish.slice(index)[0]; //note that this is non-destructive, leaves the fish array at 134
+        if (questions.includes(element)){ // looks to see if questions array already has same fish element
+          continue //this will skip forward and go back into the loop
         } else {
           questions.push(element)
         }
       }
       console.log(questions)
       //return questions;
-      //this.selectChoicesForTurn(fish, questions)
+      this.selectChoicesForTurn(this.fish, questions)
     }
 
-    selectChoicesForTurn(arr, questions) {
-      correctChoice = questions.shift()
+
+    selectChoicesForTurn(fish, questions) {
+      let correctChoice = questions.shift()
       console.log(correctChoice)
+      debugger
       let currentQuestion = [];
       currentQuestion.push(correctChoice);
       let idx = fish.findIndex(x => x.name === correctChoice.name);
@@ -100,6 +99,9 @@ class Questions {
       return currentQuestion
     }
 
+    newTurn(){
+
+    }
 
 
 }
