@@ -19,12 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
+// GAME CLASS
 class Game {
  constructor() {
-
    this.score = 0
-   this.questionCounter = 1
+   this.questionCounter = 0
    this.gameFetch()
    }
 
@@ -32,8 +31,12 @@ class Game {
   gameFetch(){
    fetch(FISH_URL, { method: 'GET' })
     .then(resp => resp.json())
-    .then(fishDataJSON => console.log(fishDataJSON))
-    this.gameInitRender()
+    .then(fishDataJSON => {
+      let questionSet = new Questions(fishDataJSON)
+      //console.log(fishDataJSON))
+    //instantiate the set of questions with the fishDataJSON
+    //the questions must be instanciated before gameInitRender can be triggered
+    this.gameInitRender()})
  }
 
    gameInitRender(){
@@ -42,15 +45,61 @@ class Game {
     startContBtn.classList.add('hide')
     radioButtons.classList.remove('hide')
     //image.src = "https://myfwc.com/media/13792/bigeyescad.jpg"
-    //instantiate the set of questions with the fishDataJSON
   }
 }
 
 //gameListeners() for every user interaction, with if statements?
 
 
+// QUESTIONS CLASS
+class Questions {
 
-//
-// class Questions {
-//
-// }
+
+  constructor(fishDataJSON) {
+    this.correctChoice = 0
+    //this.fish = [...fishDataJSON];
+    this.fishCopy = [...fishDataJSON];
+    this.getRandomQuestionsFromArray(20)
+    }
+
+    //RETURN 20 RANDOM FISH FROM FISH ARRAY
+    getRandomQuestionsFromArray(numItems) {
+      const questions = [];
+      while (questions.length < numItems) {
+        const index = Math.floor(Math.random() * this.fishCopy.length);
+        const element = this.fishCopy.slice(index)[0];
+        if (questions.includes(element)){
+          continue
+        } else {
+          questions.push(element)
+        }
+      }
+      console.log(questions)
+      //return questions;
+      //this.selectChoicesForTurn(fish, questions)
+    }
+
+    selectChoicesForTurn(arr, questions) {
+      correctChoice = questions.shift()
+      console.log(correctChoice)
+      let currentQuestion = [];
+      currentQuestion.push(correctChoice);
+      let idx = fish.findIndex(x => x.name === correctChoice.name);
+      const removed = fish.splice(idx,1);
+      let results = fish.filter(x =>  x.category === correctChoice.category)
+      let count = 3 - results.length
+      if (count > 0) {
+       let noneFish = fish.filter(x =>  x.category === "None")
+        for (let i = 0; i < count; i++){
+          currentQuestion.push(noneFish[i])
+        }
+       currentQuestion = [...currentQuestion, ...results];
+      } else {
+        currentQuestion.push(results[0], results[1], results[2])
+      }
+      return currentQuestion
+    }
+
+
+
+}
