@@ -34,7 +34,7 @@ class Game {
     .then(resp => resp.json())
     .then(fishDataJSON => {
       let questionSet = new Questions(fishDataJSON)
-    //the questions must be instanciated before gameInitRender can be triggered
+    //look into catch - the questions must be instanciated before gameInitRender can be triggered
     this.gameInitRender()})
  }
 
@@ -56,10 +56,13 @@ class Questions {
 
   constructor(fishDataJSON) {
     this.fish = [...fishDataJSON];
+    this.correctChoice = {}
+    this.currentQuestion = []
+    this.questionSet = []
     this.getRandomQuestionsFromArray(20)
     }
 
-    //RETURN 20 RANDOM FISH FROM FISH ARRAY
+    //Return 20 random fish objects from fish property array
     getRandomQuestionsFromArray(numItems) {
       const questions = [];
       while (questions.length < numItems) {
@@ -71,32 +74,27 @@ class Questions {
           questions.push(element)
         }
       }
-      console.log(questions)
-      //return questions;
+  //    this.questionSet = questions
       this.selectChoicesForTurn(this.fish, questions)
     }
 
-
     selectChoicesForTurn(fish, questions) {
-      let correctChoice = questions.shift()
-      console.log(correctChoice)
-      debugger
-      let currentQuestion = [];
-      currentQuestion.push(correctChoice);
-      let idx = fish.findIndex(x => x.name === correctChoice.name);
-      const removed = fish.splice(idx,1);
-      let results = fish.filter(x =>  x.category === correctChoice.category)
+      this.correctChoice = questions.shift()
+      this.currentQuestion.push(this.correctChoice);
+      let idx = fish.findIndex(x => x.name === this.correctChoice.name);
+      const removed = fish.splice(idx,1); //removes it out of main fish array(property of questions) so that it won't be selected as one of the choices
+      let results = fish.filter(x =>  x.category === this.correctChoice.category) // finds all the same-category fish  from fish array
       let count = 3 - results.length
       if (count > 0) {
-       let noneFish = fish.filter(x =>  x.category === "None")
+       let noneFish = fish.filter(x =>  x.category === "None") //if less than 3 from same category, then supplement with fish from None category
         for (let i = 0; i < count; i++){
-          currentQuestion.push(noneFish[i])
+          this.currentQuestion.push(noneFish[i])
         }
-       currentQuestion = [...currentQuestion, ...results];
+       this.currentQuestion = [...this.currentQuestion, ...results]; //combine noneFish and samefish category
       } else {
-        currentQuestion.push(results[0], results[1], results[2])
+        this.currentQuestion.push(results[0], results[1], results[2]) //push in first 3 results of same category find to populate questions
       }
-      return currentQuestion
+      console.log(this)
     }
 
     newTurn(){
