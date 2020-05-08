@@ -60,24 +60,24 @@ class Questions {
     this.currentQuestion = []
     this.questionSet = []
     this.getRandomQuestionsFromArray(20)
+    console.log(this)
     }
 
     //Return 20 random fish objects from fish property array
     getRandomQuestionsFromArray(numItems) {
-      const questions = [];
-      while (questions.length < numItems) {
+      while (this.questionSet.length < numItems) {
         const index = Math.floor(Math.random() * this.fish.length);
         const element = this.fish.slice(index)[0]; //note that this is non-destructive, leaves the fish array at 134
-        if (questions.includes(element)){ // looks to see if questions array already has same fish element
+        if (this.questionSet.includes(element)){ // looks to see if questionSet array already has same fish element
           continue //this will skip forward and go back into the loop
         } else {
-          questions.push(element)
+          this.questionSet.push(element)
         }
       }
-  //    this.questionSet = questions
-      this.selectChoicesForTurn(this.fish, questions)
+      this.selectChoicesForTurn(this.fish, this.questionSet)
     }
 
+    //Select 4 choices of possible answers for the currentQuestion and identify the correctChoice
     selectChoicesForTurn(fish, questions) {
       this.correctChoice = questions.shift()
       this.currentQuestion.push(this.correctChoice);
@@ -94,9 +94,9 @@ class Questions {
       } else {
         this.currentQuestion.push(results[0], results[1], results[2]) //push in first 3 results of same category find to populate questions
       }
-      console.log(this)
     }
 
+    //Plays next turn
     newTurn(){
 
     }
