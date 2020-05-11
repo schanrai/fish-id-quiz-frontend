@@ -5,15 +5,14 @@ const mainPrompt = document.querySelector('#prompt')
 const startContBtn = document.querySelector('#start-continue')
 const subPrompt = document.querySelector('#subprompt')
 const image = document.querySelector('img')
-const questionCounter = document.querySelector('#question-count')
 const radioButtons = document.querySelector('#radio-buttons')
-
+const counter = document.querySelector('#question-count')
 
 document.addEventListener('DOMContentLoaded', () => {
-  initGame()
+  startGame()
 });
 
- function initGame(){
+ function startGame(){
    startContBtn.innerText = "Start Game"
    startContBtn.addEventListener('click', () => {
       let newGame = new Game()
@@ -22,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // GAME CLASS
 class Game {
+
  constructor() {
    this.score = 0
    this.questionCounter = 0
@@ -33,21 +33,47 @@ class Game {
    fetch(FISH_URL, { method: 'GET' })
     .then(resp => resp.json())
     .then(fishDataJSON => {
-      let questionSet = new Questions(fishDataJSON)
+      let questions = new Questions(fishDataJSON)
     //look into catch - the questions must be instanciated before gameInitRender can be triggered
-    this.gameInitRender()})
+    this.gameInit(questions)})
   }
 
-  gameInitRender(){
-    mainPrompt.innerText = "What fish is this?"
+  gameInit(questions){
+    console.log(this, questions)
     subPrompt.classList.add('hide')
     startContBtn.classList.add('hide')
     radioButtons.classList.remove('hide')
-    //image.src = "https://myfwc.com/media/13792/bigeyescad.jpg"
+    this.newTurn(questions)
   }
+
+  newTurn(questions){
+    let choiceOne = document.querySelector('#choiceOne')
+    let choiceTwo = document.querySelector('#choiceTwo')
+    let choiceThree = document.querySelector('#choiceThree')
+    let choiceFour = document.querySelector('#choiceFour')
+    this.questionCounter++
+    counter.firstElementChild.innerText = this.questionCounter
+    mainPrompt.innerText = "What fish is this?"
+    image.src = `${questions.correctChoice.image_url}`
+    choiceOne.value = questions.currentQuestion[0][0].name
+    choiceOne.labels[0].innerText = choiceOne.value
+    choiceTwo.value = questions.currentQuestion[0][1].name
+    choiceTwo.labels[0].innerText = choiceTwo.value
+    choiceThree.value = questions.currentQuestion[0][2].name
+    choiceThree.labels[0].innerText = choiceThree.value
+    choiceFour.value = questions.currentQuestion[0][3].name
+    choiceFour.labels[0].innerText = choiceFour.value
+  }
+
+//data attributes on start/continue button for start and continue
+//gameListeners() for every user interaction, with if statements?
+//play turn => takes values of submit and stores it, prevents anything else being pressed accepted
+//setAnswer => logic to check answer against currentQuestion, then provide feedback to user, update score and questionCounter, provide Continue button (diff id value)
+
+
 }
 
-//gameListeners() for every user interaction, with if statements?
+
 
 
 // QUESTIONS CLASS
@@ -97,7 +123,7 @@ class Questions {
       }
     }
 
-
+    //Shuffle elements in the choices array so correctChoice in different positions
     shuffleQuestions(array) {
       for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -108,10 +134,6 @@ class Questions {
       this.currentQuestion.push(array)
     }
 
-    //Plays next turn
-    // newTurn(){
-    //
-    // }
 
 
 }
