@@ -26,7 +26,7 @@ class Game {
    this.score = 0
    this.questionCounter = 0
    this.gameFetch()
-   }
+  }
 
 // Initial Fetch from Fish Table
   gameFetch(){
@@ -36,9 +36,9 @@ class Game {
       let questionSet = new Questions(fishDataJSON)
     //look into catch - the questions must be instanciated before gameInitRender can be triggered
     this.gameInitRender()})
- }
+  }
 
-   gameInitRender(){
+  gameInitRender(){
     mainPrompt.innerText = "What fish is this?"
     subPrompt.classList.add('hide')
     startContBtn.classList.add('hide')
@@ -93,28 +93,25 @@ class Questions {
        choices = [...choices, ...results]; //combine noneFish and samefish category
       } else {
         choices.push(results[0], results[1], results[2]) //push in first 3 results of same category find to populate questions
-        console.log(choices)
         this.shuffleQuestions(choices)
       }
     }
 
 
     shuffleQuestions(array) {
-      let newArray = [...array]
-      for (let i = newArray.length - 1; i > 0; i--) {
-        debugger
+      for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
-        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+        let temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
       }
-      console.log(newArray)
-      this.currentQuestion.push(newArray)
-      console.log(this.currentQuestion)
+      this.currentQuestion.push(array)
     }
 
     //Plays next turn
-    newTurn(){
-
-    }
+    // newTurn(){
+    //
+    // }
 
 
 }
