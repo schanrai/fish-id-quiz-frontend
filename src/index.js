@@ -60,7 +60,6 @@ class Questions {
     this.currentQuestion = []
     this.questionSet = []
     this.getRandomQuestionsFromArray(20)
-    console.log(this)
     }
 
     //Return 20 random fish objects from fish property array
@@ -80,7 +79,8 @@ class Questions {
     //Select 4 choices of possible answers for the currentQuestion and identify the correctChoice
     selectChoicesForTurn(fish, questions) {
       this.correctChoice = questions.shift()
-      this.currentQuestion.push(this.correctChoice);
+      let choices = []
+      choices.push(this.correctChoice);
       let idx = fish.findIndex(x => x.name === this.correctChoice.name);
       const removed = fish.splice(idx,1); //removes it out of main fish array(property of questions) so that it won't be selected as one of the choices
       let results = fish.filter(x =>  x.category === this.correctChoice.category) // finds all the same-category fish  from fish array
@@ -88,12 +88,27 @@ class Questions {
       if (count > 0) {
        let noneFish = fish.filter(x =>  x.category === "None") //if less than 3 from same category, then supplement with fish from None category
         for (let i = 0; i < count; i++){
-          this.currentQuestion.push(noneFish[i])
+          choices.push(noneFish[i])
         }
-       this.currentQuestion = [...this.currentQuestion, ...results]; //combine noneFish and samefish category
+       choices = [...choices, ...results]; //combine noneFish and samefish category
       } else {
-        this.currentQuestion.push(results[0], results[1], results[2]) //push in first 3 results of same category find to populate questions
+        choices.push(results[0], results[1], results[2]) //push in first 3 results of same category find to populate questions
+        console.log(choices)
+        this.shuffleQuestions(choices)
       }
+    }
+
+
+    shuffleQuestions(array) {
+      let newArray = [...array]
+      for (let i = newArray.length - 1; i > 0; i--) {
+        debugger
+        let j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      console.log(newArray)
+      this.currentQuestion.push(newArray)
+      console.log(this.currentQuestion)
     }
 
     //Plays next turn
