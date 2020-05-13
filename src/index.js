@@ -4,8 +4,7 @@ const FISH_URL = 'http://localhost:3000/api/v1/fish';
 const mainPrompt = document.querySelector('#prompt')
 const startContBtn = document.querySelector('#start-continue')
 const subPrompt = document.querySelector('#subprompt')
-const radioButtons = document.querySelector('#radio-buttons')
-const counter = document.querySelector('#question-count')
+const form = document.querySelector('#form')
 const submitBtn = document.querySelector("#submit-answer")
 let questions;
 let newGame;
@@ -21,10 +20,10 @@ function startGame(){
   })
 }
 
-
-submitBtn.addEventListener('click', (event) => {
+form.addEventListener('submit', (event) => {
+  console.log(event)
   event.preventDefault;
-  let radioVal = getRadioVal(radioButtons, 'choices')
+  let radioVal = getRadioVal(form, 'choices')
   newGame.checkAnswer(radioVal)
 })
 
@@ -46,13 +45,17 @@ function getRadioVal(form, name) {
 // GAME CLASS - should I declare all the DOM elements here since Game main class interacting with them? How can I add them so they are available to every function?
 class Game {
 
-
-
  constructor() {
    this.score = 0
    this.questionCounter = 0
    this.gameFetch()
   }
+
+ set scorePercent(score){
+   this.scorePercent = (this.score/this.questionCounter) * 100
+ }
+ //bear in mind questionCounter will be one ahead if newTurn
+
 
 // Initial Fetch from Fish Table
   gameFetch(){
@@ -66,14 +69,14 @@ class Game {
 
   gameInit(questions){
     console.log(this, questions)
-
     subPrompt.classList.add('hide')
     startContBtn.classList.add('hide')
-    radioButtons.classList.remove('hide')
+    form.classList.remove('hide')
     this.newTurn(questions)
   }
 
   newTurn(questions){
+    const counter = document.querySelector('#question-count')
     const image = document.querySelector('img')
     let choiceOne = document.querySelector('#choiceOne')
     let choiceTwo = document.querySelector('#choiceTwo')
@@ -95,21 +98,22 @@ class Game {
   }
 
   checkAnswer(radioVal){
-    debugger
     if (radioVal == questions.correctChoice.id){
       console.log("This is correct")
-      correctAnswerView()
+      newGame.score ++
+      this.correctAnswerView()
     } else {
       console.log("This is wrong")
       //incorrectAnswerView()
     }
 
-
-
-
-
   }
 
+  correctAnswerView(){
+    mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> "Well done! You are correct"`
+    //learn more baout this fish + correct URL
+    //highlight correct question and add tick
+  }
 //data attributes on start/continue button for start and continue
 //gameListeners() for every user interaction, with if statements?
 //play turn => takes values of submit and stores it, prevents anything else being pressed accepted
