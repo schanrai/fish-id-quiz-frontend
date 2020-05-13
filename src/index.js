@@ -7,7 +7,8 @@ const subPrompt = document.querySelector('#subprompt')
 const radioButtons = document.querySelector('#radio-buttons')
 const counter = document.querySelector('#question-count')
 const submitBtn = document.querySelector("#submit-answer")
-
+let questions;
+let newGame;
 
 document.addEventListener('DOMContentLoaded', () => {
   startGame()
@@ -16,16 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
 function startGame(){
  startContBtn.innerText = "Start Game"
  startContBtn.addEventListener('click', () => {
-    let newGame = new Game()
+    newGame = new Game()
   })
 }
 
-//How to go from here to check the user input against the correctChoice property of the instance of the questions class which was initialized in the Game class? create it as a global variable?
+
 submitBtn.addEventListener('click', (event) => {
-  //console.log(event)
   event.preventDefault;
   let radioVal = getRadioVal(radioButtons, 'choices')
-  //console.log(radioVal)
+  newGame.checkAnswer(radioVal)
 })
 
 function getRadioVal(form, name) {
@@ -33,9 +33,9 @@ function getRadioVal(form, name) {
     // get list of radio buttons with specified name
     const radios = form.elements[name];
     // loop through list of radio buttons
-    for (var i=0, len=radios.length; i<len; i++) {
+    for (var i=0; i < radios.length; i++) {
         if (radios[i].checked ) { // radio checked?
-            val = radios[i].value; // if so, hold its value in val
+            val = radios[i].value; // if so, hold its value (fish id) in val
             break; // and break out of for loop
         }
     }
@@ -43,8 +43,10 @@ function getRadioVal(form, name) {
 }
 
 
-// GAME CLASS - practice get and setter methods, do they work on the instance of the class, where do they need to be called from?
+// GAME CLASS - should I declare all the DOM elements here since Game main class interacting with them? How can I add them so they are available to every function?
 class Game {
+
+
 
  constructor() {
    this.score = 0
@@ -57,13 +59,14 @@ class Game {
    fetch(FISH_URL, { method: 'GET' })
     .then(resp => resp.json())
     .then(fishDataJSON => {
-      let questions = new Questions(fishDataJSON)
+      questions = new Questions(fishDataJSON)
     //look into catch - the questions must be instanciated before gameInitRender can be triggered
     this.gameInit(questions)})
   }
 
   gameInit(questions){
     console.log(this, questions)
+
     subPrompt.classList.add('hide')
     startContBtn.classList.add('hide')
     radioButtons.classList.remove('hide')
@@ -91,6 +94,21 @@ class Game {
     choiceFour.labels[0].innerText = questions.currentQuestion[0][3].name
   }
 
+  checkAnswer(radioVal){
+    debugger
+    if (radioVal == questions.correctChoice.id){
+      console.log("This is correct")
+      correctAnswerView()
+    } else {
+      console.log("This is wrong")
+      //incorrectAnswerView()
+    }
+
+
+
+
+
+  }
 
 //data attributes on start/continue button for start and continue
 //gameListeners() for every user interaction, with if statements?
@@ -98,7 +116,6 @@ class Game {
 //checkAnswer => logic to check answer against currentQuestion, then provide feedback to user, update score and questionCounter, provide Continue button (diff id value). Also, think about doing a while loop for event listeners.
 
 }
-
 
 
 // QUESTIONS CLASS
@@ -158,6 +175,8 @@ class Questions {
       }
       this.currentQuestion.push(array)
     }
+
+
 
 
 
