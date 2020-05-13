@@ -4,22 +4,46 @@ const FISH_URL = 'http://localhost:3000/api/v1/fish';
 const mainPrompt = document.querySelector('#prompt')
 const startContBtn = document.querySelector('#start-continue')
 const subPrompt = document.querySelector('#subprompt')
-const image = document.querySelector('img')
 const radioButtons = document.querySelector('#radio-buttons')
 const counter = document.querySelector('#question-count')
+const submitBtn = document.querySelector("#submit-answer")
+
 
 document.addEventListener('DOMContentLoaded', () => {
   startGame()
-});
+})
 
- function startGame(){
-   startContBtn.innerText = "Start Game"
-   startContBtn.addEventListener('click', () => {
-      let newGame = new Game()
-    })
- }
+function startGame(){
+ startContBtn.innerText = "Start Game"
+ startContBtn.addEventListener('click', () => {
+    let newGame = new Game()
+  })
+}
 
-// GAME CLASS
+//How to go from here to check the user input against the correctChoice property of the instance of the questions class which was initialized in the Game class? create it as a global variable?
+submitBtn.addEventListener('click', (event) => {
+  //console.log(event)
+  event.preventDefault;
+  let radioVal = getRadioVal(radioButtons, 'choices')
+  //console.log(radioVal)
+})
+
+function getRadioVal(form, name) {
+    let val;
+    // get list of radio buttons with specified name
+    const radios = form.elements[name];
+    // loop through list of radio buttons
+    for (var i=0, len=radios.length; i<len; i++) {
+        if (radios[i].checked ) { // radio checked?
+            val = radios[i].value; // if so, hold its value in val
+            break; // and break out of for loop
+        }
+    }
+    return val; // return value of checked radio or undefined if none checked
+}
+
+
+// GAME CLASS - practice get and setter methods, do they work on the instance of the class, where do they need to be called from?
 class Game {
 
  constructor() {
@@ -47,6 +71,7 @@ class Game {
   }
 
   newTurn(questions){
+    const image = document.querySelector('img')
     let choiceOne = document.querySelector('#choiceOne')
     let choiceTwo = document.querySelector('#choiceTwo')
     let choiceThree = document.querySelector('#choiceThree')
@@ -55,24 +80,24 @@ class Game {
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${questions.correctChoice.image_url}`
-    choiceOne.value = questions.currentQuestion[0][0].name
-    choiceOne.labels[0].innerText = choiceOne.value
-    choiceTwo.value = questions.currentQuestion[0][1].name
-    choiceTwo.labels[0].innerText = choiceTwo.value
-    choiceThree.value = questions.currentQuestion[0][2].name
-    choiceThree.labels[0].innerText = choiceThree.value
-    choiceFour.value = questions.currentQuestion[0][3].name
-    choiceFour.labels[0].innerText = choiceFour.value
+    //can you use array destrucring and iteration to assign these?
+    choiceOne.value = questions.currentQuestion[0][0].id
+    choiceOne.labels[0].innerText = questions.currentQuestion[0][0].name
+    choiceTwo.value = questions.currentQuestion[0][1].id
+    choiceTwo.labels[0].innerText = questions.currentQuestion[0][1].name
+    choiceThree.value = questions.currentQuestion[0][2].id
+    choiceThree.labels[0].innerText = questions.currentQuestion[0][2].name
+    choiceFour.value = questions.currentQuestion[0][3].id
+    choiceFour.labels[0].innerText = questions.currentQuestion[0][3].name
   }
+
 
 //data attributes on start/continue button for start and continue
 //gameListeners() for every user interaction, with if statements?
 //play turn => takes values of submit and stores it, prevents anything else being pressed accepted
-//setAnswer => logic to check answer against currentQuestion, then provide feedback to user, update score and questionCounter, provide Continue button (diff id value)
-
+//checkAnswer => logic to check answer against currentQuestion, then provide feedback to user, update score and questionCounter, provide Continue button (diff id value). Also, think about doing a while loop for event listeners.
 
 }
-
 
 
 

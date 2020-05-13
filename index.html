@@ -50,25 +50,28 @@
           <button class="expanded button" id="start-continue"></button>
         <!-- radio buttons/answers section-->
         <form data-abide novalidate id="radio-buttons" class="hide">
-         <button class="expanded button" type="submit" id="submit">Submit</button>
+         <!-- submit answer button -->
+         <button class="expanded button" type="submit" id="submit-answer">Submit</button>
          <div class="grid-x medium-up-2 ">
             <!-- radio ind -->
+            <fieldset>
               <div class="cell">
-                <input type="radio" name="choiceOne" id="choiceOne" value="choiceOne">
+                <input type="radio" name="choices" id="choiceOne" value="choiceOne">
                 <label for="choiceOne">One</label>
               </div>
               <div class="cell">
-                <input required type="radio" name="choiceTwo" id="choiceTwo" value="choiceTwo">
+                <input required type="radio" name="choices" id="choiceTwo" value="choiceTwo">
                 <label for="choiceTwo">Two</label>
               </div>
               <div class="cell">
-                <input type="radio" name="choiceThree" id="choiceThree" value="choiceThree">
+                <input type="radio" name="choices" id="choiceThree" value="choiceThree">
                 <label for="choiceThree">Three</label>
               </div>
               <div class="cell">
-                <input type="radio" name="choiceFour" id="choiceFour" value="choiceFour">
+                <input type="radio" name="choices" id="choiceFour" value="choiceFour">
                 <label for="choiceFour">Four</label>
               </div>
+            </fieldset>
          </div>
         </form>
 
@@ -81,7 +84,7 @@
             </div>
             <!--progress bar-->
             <div class="progress warning"  class= ".float-center" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0" aria-    valuetext="50 percent" aria-valuemax="100">
-              <div class="progress-meter" style="width: 50%"></div>
+              <div class="progress-meter" style="width: 10%"></div>
             </div>
           <!--end stats + progress section-->
           </div>
