@@ -5,7 +5,7 @@ const mainPrompt = document.querySelector('#prompt')
 const startContBtn = document.querySelector('#start-continue')
 const subPrompt = document.querySelector('#subprompt')
 const form = document.querySelector('#form')
-const submitBtn = document.querySelector("#submit-answer")
+
 let questions;
 let newGame;
 
@@ -21,8 +21,7 @@ function startGame(){
 }
 
 form.addEventListener('submit', (event) => {
-  console.log(event)
-  event.preventDefault;
+  event.preventDefault()
   let radioVal = getRadioVal(form, 'choices')
   newGame.checkAnswer(radioVal)
 })
@@ -104,19 +103,24 @@ class Game {
       this.correctAnswerView()
     } else {
       console.log("This is wrong")
-      //incorrectAnswerView()
+      //this.incorrectAnswerView()
     }
-
   }
 
   correctAnswerView(){
-    mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> "Well done! You are correct"`
-    //learn more baout this fish + correct URL
-    //highlight correct question and add tick
+    const submitBtn = document.querySelector("#submit-answer")
+    //<i class="far fa-check-circle"></i>
+    mainPrompt.innerHTML = `Well done! You are correct`
+    subPrompt.classList.remove('hide')
+    subPrompt.innerHTML =`Learn more about this fish <a href="${questions.correctChoice.details_url}">here.</a>`
+    submitBtn.classList.add('hide')
+    startContBtn.classList.remove('hide')
+    startContBtn.innerText = "Continue Game"
+    //update score counter
   }
+
 //data attributes on start/continue button for start and continue
 //gameListeners() for every user interaction, with if statements?
-//play turn => takes values of submit and stores it, prevents anything else being pressed accepted
 //checkAnswer => logic to check answer against currentQuestion, then provide feedback to user, update score and questionCounter, provide Continue button (diff id value). Also, think about doing a while loop for event listeners.
 
 }
@@ -179,8 +183,6 @@ class Questions {
       }
       this.currentQuestion.push(array)
     }
-
-
 
 
 
