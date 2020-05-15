@@ -1,6 +1,6 @@
 const BACKEND_URL = 'http://localhost:3000';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
-const numTurns = 20
+const numTurns = 4
 
 const mainPrompt = document.querySelector('#prompt')
 const startContBtn = document.querySelector('#start-continue')
@@ -20,14 +20,17 @@ function startGame(){
  startContBtn.innerText = "Start Game"
  startContBtn.setAttribute('name','start')
  startContBtn.addEventListener('click', () => {
-    newGame = new Game()
+   if (startContBtn.name == "start"){
+    newGame = new Game()}
   })
 }
 
+
 function continueGame(){
+    questions.selectChoicesForTurn(questions.fish, questions.questionSet)
     startContBtn.addEventListener('click', () => {
-    questions.selectChoicesForTurn ??
-    newGame.newTurn(questions)
+      if (startContBtn.name == "continue"){
+      newGame.newTurn(questions)}
   })
 }
 
@@ -80,7 +83,7 @@ class Game {
   }
 
   gameInit(questions){
-    console.log(this, questions)
+    //console.log(this, questions)
     form.classList.remove('hide')
     this.newTurn(questions)
   }
@@ -89,6 +92,7 @@ class Game {
     if (startContBtn.name == "continue"){
       submitBtn.classList.remove('hide')
     }
+    console.log(questions)
     subPrompt.classList.add('hide')
     startContBtn.classList.add('hide')
     const counter = document.querySelector('#question-count')
@@ -111,20 +115,21 @@ class Game {
     choiceFour.value = questions.currentQuestion[0][3].id
     choiceFour.labels[0].innerText = questions.currentQuestion[0][3].name
     ++this.questionCounter
-    console.log(this)
+    //console.log(this)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${questions.correctChoice.image_url}`
     //can you use array destrucring and iteration to assign these?
-
 
   }
 
   checkAnswer(radioVal){
     if (radioVal == questions.correctChoice.id){
       //correct
-      newGame.score++
+      //console.log("console logging this", this)
+      ++newGame.score
       let scorePercentage = newGame.scorePercent(this.score)
+      console.log("console logging score", this.score)
       mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       const percentCount = document.querySelector("#percent-count")
       percentCount.firstElementChild.innerText = scorePercentage
@@ -138,7 +143,6 @@ class Game {
 
 
   answerView(){
-    //Same code as incorrectView
     submitBtn.classList.add('hide')
     subPrompt.classList.remove('hide')
     subPrompt.innerHTML =`Learn more about this fish <a href="${questions.correctChoice.details_url}" target="_blank">here.</a>`
@@ -184,7 +188,7 @@ class Questions {
 
     //Select 4 choices of possible answers for the currentQuestion and identify the correctChoice
     selectChoicesForTurn(fish, questions) {
-      //shift should remove element from the questionSet array 
+      //shift should remove element from the questionSet array
       this.correctChoice = questions.shift()
       let choices = []
       choices.push(this.correctChoice);
@@ -206,6 +210,9 @@ class Questions {
 
     //Shuffle elements in the choices array so correctChoice in different positions
     shuffleQuestions(array) {
+      if (this.currentQuestion.length > 0){
+        this.currentQuestion = []
+      }
       for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         let temp = array[i]
