@@ -24,7 +24,6 @@ function startGame(){
   })
 }
 
-
 function continueGame(){
     questions.selectChoicesForTurn(questions.fish, questions.questionSet)
     newGame.questionCounter++
@@ -124,22 +123,23 @@ class Game {
   }
 
   checkAnswer(radioVal){
-    if (radioVal == questions.correctChoice.id){
-      //correct
-      //console.log("console logging this", this)
-//      console.log("line 133 checkAnswer questionCounter", this.questionCounter)
-      ++newGame.score
-      let scorePercentage = newGame.scorePercent(this.score)
-//      console.log("line 136 checkAnswer score", this.score)
-      mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
-      const percentCount = document.querySelector("#percent-count")
-      percentCount.firstElementChild.innerText = scorePercentage
-      this.answerView()
-    } else {
-      //incorrect
-      mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Wrong! The correct answer is ${questions.correctChoice.name}.`
-      this.answerView()
-    }
+    console.log("console logging this", this)
+    const percentCount = document.querySelector("#percent-count")
+    let scorePercentage
+      if (radioVal == questions.correctChoice.id){
+        //correct
+        ++newGame.score
+        scorePercentage = newGame.scorePercent(this.score)
+        console.log("line 132 checkAnswer score", this.score)
+        mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
+      } else {
+        //incorrect
+        scorePercentage = newGame.scorePercent(this.score)
+        console.log("line 137 checkAnswer incorrect score", this.score)
+        mainPrompt.innerHTML = `<i class="far fa-times-circle"></i> Wrong! The correct answer is ${questions.correctChoice.name}.`
+      }
+    percentCount.firstElementChild.innerText = scorePercentage
+    this.answerView()
   }
 
 
