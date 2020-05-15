@@ -1,6 +1,6 @@
 const BACKEND_URL = 'http://localhost:3000';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
-const numTurns = 8
+const numTurns = 3
 
 const mainPrompt = document.querySelector('#prompt')
 const startBtn = document.querySelector('#start')
@@ -28,8 +28,6 @@ function continueGame(){
     questions.selectChoicesForTurn(questions.fish, questions.questionSet)
     newGame.questionCounter++
     contBtn.addEventListener('click', (e) => {
-     console.log("line 30 continuegame questionCounter",
-    newGame.questionCounter)
     newGame.newTurn(questions)
   })
 }
@@ -83,14 +81,12 @@ class Game {
   }
 
   gameInit(questions){
-    //console.log(this, questions)
     form.classList.remove('hide')
     this.questionCounter++
     this.newTurn(questions)
   }
 
   newTurn(questions){
-    console.log("line 91 newTurn questions", questions)
     subPrompt.classList.add('hide')
     contBtn.classList.add('hide')
     startBtn.classList.add('hide')
@@ -149,8 +145,18 @@ class Game {
     subPrompt.innerHTML =`Learn more about this fish <a href="${questions.correctChoice.details_url}" target="_blank">here.</a>`
     contBtn.classList.remove('hide')
     //startContBtn.setAttribute('name','continue')
-    continueGame()
+    if (questions.questionSet.length == 0){
+      this.endGame()
+    } else {
+      continueGame()
+    }
   }
+
+    endGame(){
+      console.log("the game has ended!")
+      
+    }
+
 }
 
 
