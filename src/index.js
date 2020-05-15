@@ -1,9 +1,10 @@
 const BACKEND_URL = 'http://localhost:3000';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
-const numTurns = 4
+const numTurns = 8
 
 const mainPrompt = document.querySelector('#prompt')
-const startContBtn = document.querySelector('#start-continue')
+const startBtn = document.querySelector('#start')
+const contBtn = document.querySelector('#continue')
 const subPrompt = document.querySelector('#subprompt')
 const form = document.querySelector('#form')
 const submitBtn = document.querySelector("#submit-answer")
@@ -13,24 +14,24 @@ let newGame;
 
 //VIEWS + USER
 document.addEventListener('DOMContentLoaded', () => {
+  contBtn.classList.add('hide')
   startGame()
 })
 
 function startGame(){
- startContBtn.innerText = "Start Game"
- startContBtn.setAttribute('name','start')
- startContBtn.addEventListener('click', () => {
-   if (startContBtn.name == "start"){
-    newGame = new Game()}
+ startBtn.addEventListener('click', () => {
+    newGame = new Game()
   })
 }
 
 
 function continueGame(){
     questions.selectChoicesForTurn(questions.fish, questions.questionSet)
-    startContBtn.addEventListener('click', () => {
-      if (startContBtn.name == "continue"){
-      newGame.newTurn(questions)}
+    newGame.questionCounter++
+    contBtn.addEventListener('click', (e) => {
+     console.log("line 30 continuegame questionCounter",
+    newGame.questionCounter)
+    newGame.newTurn(questions)
   })
 }
 
@@ -85,16 +86,16 @@ class Game {
   gameInit(questions){
     //console.log(this, questions)
     form.classList.remove('hide')
+    this.questionCounter++
     this.newTurn(questions)
   }
 
   newTurn(questions){
-    if (startContBtn.name == "continue"){
-      submitBtn.classList.remove('hide')
-    }
-    console.log(questions)
+    console.log("line 91 newTurn questions", questions)
     subPrompt.classList.add('hide')
-    startContBtn.classList.add('hide')
+    contBtn.classList.add('hide')
+    startBtn.classList.add('hide')
+    submitBtn.classList.remove('hide')
     const counter = document.querySelector('#question-count')
     const image = document.querySelector('img')
     let choiceOne = document.querySelector('#choiceOne')
@@ -114,22 +115,22 @@ class Game {
     choiceFour.checked = false
     choiceFour.value = questions.currentQuestion[0][3].id
     choiceFour.labels[0].innerText = questions.currentQuestion[0][3].name
-    ++this.questionCounter
-    //console.log(this)
+    //++this.questionCounter
+    console.log("line 121 questionCounter", this.questionCounter)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${questions.correctChoice.image_url}`
     //can you use array destrucring and iteration to assign these?
-
   }
 
   checkAnswer(radioVal){
     if (radioVal == questions.correctChoice.id){
       //correct
       //console.log("console logging this", this)
+//      console.log("line 133 checkAnswer questionCounter", this.questionCounter)
       ++newGame.score
       let scorePercentage = newGame.scorePercent(this.score)
-      console.log("console logging score", this.score)
+//      console.log("line 136 checkAnswer score", this.score)
       mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       const percentCount = document.querySelector("#percent-count")
       percentCount.firstElementChild.innerText = scorePercentage
@@ -146,17 +147,10 @@ class Game {
     submitBtn.classList.add('hide')
     subPrompt.classList.remove('hide')
     subPrompt.innerHTML =`Learn more about this fish <a href="${questions.correctChoice.details_url}" target="_blank">here.</a>`
-    startContBtn.classList.remove('hide')
-    startContBtn.innerText = "Continue Game"
-    startContBtn.setAttribute('name','continue')
+    contBtn.classList.remove('hide')
+    //startContBtn.setAttribute('name','continue')
     continueGame()
   }
-
-
-//data attributes on start/continue button for start and continue
-//gameListeners() for every user interaction, with if statements?
-//checkAnswer => logic to check answer against currentQuestion, then provide feedback to user, update score and questionCounter, provide Continue button (diff id value). Also, think about doing a while loop for event listeners.
-
 }
 
 
@@ -221,7 +215,6 @@ class Questions {
       }
       this.currentQuestion.push(array)
     }
-
 
 
 }
