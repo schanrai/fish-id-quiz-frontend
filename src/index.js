@@ -1,6 +1,6 @@
 const BACKEND_URL = 'http://localhost:3000';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
-const numTurns = 3
+const numTurns = 5
 
 const mainPrompt = document.querySelector('#prompt')
 const startBtn = document.querySelector('#start')
@@ -26,17 +26,19 @@ function startGame(){
 
 function continueGame(){
     questions.selectChoicesForTurn(questions.fish, questions.questionSet)
-    newGame.questionCounter++
-    contBtn.addEventListener('click', (e) => {
-    newGame.newTurn(questions)
-  })
+    //newGame.questionCounter++
 }
+
+contBtn.addEventListener('click', (e) => {
+  newGame.newTurn(questions)
+})
 
 form.addEventListener('submit', (event) => {
   event.preventDefault()
   let radioVal = getRadioVal(form, 'choices')
   newGame.checkAnswer(radioVal)
 })
+
 
 function getRadioVal(form, name) {
     let val;
@@ -81,9 +83,9 @@ class Game {
   }
 
   gameInit(questions){
-    form.classList.remove('hide')
-    this.questionCounter++
+    //this.questionCounter++
     this.newTurn(questions)
+    form.classList.remove('hide')
   }
 
   newTurn(questions){
@@ -110,7 +112,7 @@ class Game {
     choiceFour.checked = false
     choiceFour.value = questions.currentQuestion[0][3].id
     choiceFour.labels[0].innerText = questions.currentQuestion[0][3].name
-    //++this.questionCounter
+    ++this.questionCounter
     console.log("line 121 questionCounter", this.questionCounter)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
@@ -154,7 +156,7 @@ class Game {
 
     endGame(){
       console.log("the game has ended!")
-      
+
     }
 
 }
