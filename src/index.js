@@ -1,6 +1,6 @@
 const BACKEND_URL = 'http://localhost:3000';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
-const numTurns = 5
+const numTurns = 3
 
 const mainPrompt = document.querySelector('#prompt')
 const startBtn = document.querySelector('#start')
@@ -155,8 +155,16 @@ class Game {
   }
 
     endGame(){
-      console.log("the game has ended!")
-
+    contBtn.classList.add('hide')
+    form.classList.add('hide')
+    startBtn.classList.remove('hide')
+      if (this.score >= (this.questionCounter/2)){
+        mainPrompt.innerHTML = `<i class="far fa-thumbs-up"></i> Well done! You scored ${newGame.scorePercent(this.score)}%`
+        subPrompt.innerText ="Why not play another game?"
+      } else {
+        mainPrompt.innerHTML = `<i class="far fa-thumbs-down"></i> Oh dear! You scored ${newGame.scorePercent(this.score)}%`
+        subPrompt.innerText ="Why not play another game?"
+      }
     }
 
 }
