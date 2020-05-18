@@ -29,7 +29,7 @@ function continueGame(){
     //newGame.questionCounter++
 }
 
-contBtn.addEventListener('click', (e) => {
+contBtn.addEventListener('click', () => {
   newGame.newTurn(questions)
 })
 
@@ -121,18 +121,17 @@ class Game {
   }
 
   checkAnswer(radioVal){
-    console.log("console logging this", this)
     const percentCount = document.querySelector("#percent-count")
     let scorePercentage
       if (radioVal == questions.correctChoice.id){
         //correct
         ++newGame.score
-        scorePercentage = newGame.scorePercent(this.score)
+        scorePercentage = this.scorePercent(this.score)
         console.log("line 132 checkAnswer score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
         //incorrect
-        scorePercentage = newGame.scorePercent(this.score)
+        scorePercentage = this.scorePercent(this.score)
         console.log("line 137 checkAnswer incorrect score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-times-circle"></i> Wrong! The correct answer is ${questions.correctChoice.name}.`
       }
@@ -154,10 +153,12 @@ class Game {
     }
   }
 
-    endGame(){
+  endGame(){
+    contBtn.removeEventListener('click', () => {
+      newTurn(questions)
+    })
     contBtn.classList.add('hide')
     form.classList.add('hide')
-    startBtn.classList.remove('hide')
       if (this.score >= (this.questionCounter/2)){
         mainPrompt.innerHTML = `<i class="far fa-thumbs-up"></i> Well done! You scored ${newGame.scorePercent(this.score)}%`
         subPrompt.innerText ="Why not play another game?"
@@ -166,7 +167,6 @@ class Game {
         subPrompt.innerText ="Why not play another game?"
       }
     }
-
 }
 
 
