@@ -1,6 +1,6 @@
 const BACKEND_URL = 'http://localhost:3000';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
-const numTurns = 3
+const numTurns = 5
 
 const mainPrompt = document.querySelector('#prompt')
 const startBtn = document.querySelector('#start')
@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function startGame(){
  startBtn.addEventListener('click', () => {
+   updatePercentView("--")
     newGame = new Game()
   })
 }
@@ -53,6 +54,11 @@ function getRadioVal(form, name) {
         }
     }
     return val; // return value of checked radio or undefined if none checked
+}
+
+function updatePercentView(scorePercentage){
+  const percentCount = document.querySelector("#percent-count")
+  percentCount.firstElementChild.innerText = scorePercentage
 }
 
 
@@ -120,8 +126,8 @@ class Game {
     //can you use array destrucring and iteration to assign these?
   }
 
+
   checkAnswer(radioVal){
-    const percentCount = document.querySelector("#percent-count")
     let scorePercentage
       if (radioVal == questions.correctChoice.id){
         //correct
@@ -135,9 +141,11 @@ class Game {
         console.log("line 137 checkAnswer incorrect score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-times-circle"></i> Wrong! The correct answer is ${questions.correctChoice.name}.`
       }
-    percentCount.firstElementChild.innerText = scorePercentage
+    updatePercentView(scorePercentage)
     this.answerView()
   }
+
+
 
 
   answerView(){
@@ -157,6 +165,7 @@ class Game {
     contBtn.removeEventListener('click', () => {
       newTurn(questions)
     })
+    startBtn.classList.remove('hide')
     contBtn.classList.add('hide')
     form.classList.add('hide')
       if (this.score >= (this.questionCounter/2)){
