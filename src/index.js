@@ -146,8 +146,6 @@ class Game {
   }
 
 
-
-
   answerView(){
     submitBtn.classList.add('hide')
     subPrompt.classList.remove('hide')
