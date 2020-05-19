@@ -1,6 +1,6 @@
 const BACKEND_URL = 'http://localhost:3000';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
-const numTurns = 5
+const numTurns = 3
 
 const mainPrompt = document.querySelector('#prompt')
 const startBtn = document.querySelector('#start')
@@ -9,14 +9,15 @@ const subPrompt = document.querySelector('#subprompt')
 const form = document.querySelector('#form')
 const submitBtn = document.querySelector("#submit-answer")
 
-let questions;
+//let questions; -> you don't need this because you encapsultated in the game instance
 let newGame;
 
-//VIEWS + USER
+//VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
   contBtn.classList.add('hide')
   startGame()
 })
+
 
 function startGame(){
  startBtn.addEventListener('click', () => {
@@ -62,14 +63,14 @@ function updatePercentView(scorePercentage){
 }
 
 
-// GAME CLASS - should I declare all the DOM elements here since Game main class interacting with them? How can I add them so they are available to every function?
+// GAME CLASS
 class Game {
 
  constructor() {
    this.score = 0
    this.questionCounter = 0
    this.gameFetch()
-
+// this.questions = {}
   }
 
  scorePercent(score){
@@ -84,16 +85,22 @@ class Game {
     .then(resp => resp.json())
     .then(fishDataJSON => {
       questions = new Questions(fishDataJSON)
-    //look into catch - the questions must be instanciated before gameInitRender can be triggered
-    this.gameInit(questions)})
+      //this.questions = new Questions(fishDataJSON)
+      this.gameInit(questions)})
+      //this.gameInit()
+    .catch((error) => {
+      console.error(error)
+    })
   }
 
+ //gameInit()
   gameInit(questions){
-    //this.questionCounter++
+    //this.newTurn()
     this.newTurn(questions)
     form.classList.remove('hide')
   }
 
+ //newTurn(){}
   newTurn(questions){
     subPrompt.classList.add('hide')
     contBtn.classList.add('hide')
@@ -107,6 +114,7 @@ class Game {
     let choiceFour = document.querySelector('#choiceFour')
 // REFACTOR
     choiceOne.checked = false
+    //choiceOne.value = this.questions.currentQuestion[0][0].id
     choiceOne.value = questions.currentQuestion[0][0].id
     choiceOne.labels[0].innerText = questions.currentQuestion[0][0].name
     choiceTwo.checked = false
@@ -132,15 +140,16 @@ class Game {
       if (radioVal == questions.correctChoice.id){
         //correct
         ++newGame.score
-        scorePercentage = this.scorePercent(this.score)
+        //scorePercentage = this.scorePercent(this.score)
         console.log("line 132 checkAnswer score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
         //incorrect
-        scorePercentage = this.scorePercent(this.score)
+        //scorePercentage = this.scorePercent(this.score)
         console.log("line 137 checkAnswer incorrect score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-times-circle"></i> Wrong! The correct answer is ${questions.correctChoice.name}.`
       }
+    scorePercentage = this.scorePercent(this.score)
     updatePercentView(scorePercentage)
     this.answerView()
   }
