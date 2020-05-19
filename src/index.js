@@ -27,12 +27,12 @@ function startGame(){
 }
 
 function continueGame(){
-    questions.selectChoicesForTurn(questions.fish, questions.questionSet)
+    this.questions.selectChoicesForTurn(this.questions.fish, this.questions.questionSet)
     //newGame.questionCounter++
 }
 
 contBtn.addEventListener('click', () => {
-  newGame.newTurn(questions)
+  newGame.newTurn()
 })
 
 form.addEventListener('submit', (event) => {
@@ -70,7 +70,7 @@ class Game {
    this.score = 0
    this.questionCounter = 0
    this.gameFetch()
-// this.questions = {}
+   this.questions = {}
   }
 
  scorePercent(score){
@@ -84,24 +84,21 @@ class Game {
    fetch(FISH_URL, { method: 'GET' })
     .then(resp => resp.json())
     .then(fishDataJSON => {
-      questions = new Questions(fishDataJSON)
-      //this.questions = new Questions(fishDataJSON)
-      this.gameInit(questions)})
-      //this.gameInit()
+      this.questions = new Questions(fishDataJSON)
+      this.gameInit()
+      })
     .catch((error) => {
       console.error(error)
     })
+
   }
 
- //gameInit()
-  gameInit(questions){
-    //this.newTurn()
-    this.newTurn(questions)
+  gameInit(){
     form.classList.remove('hide')
+    this.newTurn()
   }
 
- //newTurn(){}
-  newTurn(questions){
+  newTurn(){
     subPrompt.classList.add('hide')
     contBtn.classList.add('hide')
     startBtn.classList.add('hide')
@@ -114,30 +111,29 @@ class Game {
     let choiceFour = document.querySelector('#choiceFour')
 // REFACTOR
     choiceOne.checked = false
-    //choiceOne.value = this.questions.currentQuestion[0][0].id
-    choiceOne.value = questions.currentQuestion[0][0].id
-    choiceOne.labels[0].innerText = questions.currentQuestion[0][0].name
+    choiceOne.value = this.questions.currentQuestion[0][0].id
+    choiceOne.labels[0].innerText = this.questions.currentQuestion[0][0].name
     choiceTwo.checked = false
-    choiceTwo.value = questions.currentQuestion[0][1].id
-    choiceTwo.labels[0].innerText = questions.currentQuestion[0][1].name
+    choiceTwo.value = this.questions.currentQuestion[0][1].id
+    choiceTwo.labels[0].innerText = this.questions.currentQuestion[0][1].name
     choiceThree.checked = false
-    choiceThree.value = questions.currentQuestion[0][2].id
-    choiceThree.labels[0].innerText = questions.currentQuestion[0][2].name
+    choiceThree.value = this.questions.currentQuestion[0][2].id
+    choiceThree.labels[0].innerText = this.questions.currentQuestion[0][2].name
     choiceFour.checked = false
-    choiceFour.value = questions.currentQuestion[0][3].id
-    choiceFour.labels[0].innerText = questions.currentQuestion[0][3].name
+    choiceFour.value = this.questions.currentQuestion[0][3].id
+    choiceFour.labels[0].innerText = this.questions.currentQuestion[0][3].name
     ++this.questionCounter
     console.log("line 121 questionCounter", this.questionCounter)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
-    image.src = `${questions.correctChoice.image_url}`
+    image.src = `${this.questions.correctChoice.image_url}`
     //can you use array destrucring and iteration to assign these?
   }
 
 
   checkAnswer(radioVal){
     let scorePercentage
-      if (radioVal == questions.correctChoice.id){
+      if (radioVal == this.questions.correctChoice.id){
         //correct
         ++newGame.score
         //scorePercentage = this.scorePercent(this.score)
@@ -147,7 +143,7 @@ class Game {
         //incorrect
         //scorePercentage = this.scorePercent(this.score)
         console.log("line 137 checkAnswer incorrect score", this.score)
-        mainPrompt.innerHTML = `<i class="far fa-times-circle"></i> Wrong! The correct answer is ${questions.correctChoice.name}.`
+        mainPrompt.innerHTML = `<i class="far fa-times-circle"></i> Wrong! The correct answer is ${this.questions.correctChoice.name}.`
       }
     scorePercentage = this.scorePercent(this.score)
     updatePercentView(scorePercentage)
@@ -158,19 +154,19 @@ class Game {
   answerView(){
     submitBtn.classList.add('hide')
     subPrompt.classList.remove('hide')
-    subPrompt.innerHTML =`Learn more about this fish <a href="${questions.correctChoice.details_url}" target="_blank">here.</a>`
+    subPrompt.innerHTML =`Learn more about this fish <a href="${this.questions.correctChoice.details_url}" target="_blank">here.</a>`
     contBtn.classList.remove('hide')
     //startContBtn.setAttribute('name','continue')
-    if (questions.questionSet.length == 0){
+    if (this.questions.questionSet.length == 0){
       this.endGame()
     } else {
-      continueGame()
+      continueGame.apply(this)
     }
   }
 
   endGame(){
     contBtn.removeEventListener('click', () => {
-      newTurn(questions)
+      newTurn()
     })
     startBtn.classList.remove('hide')
     contBtn.classList.add('hide')
@@ -213,9 +209,9 @@ class Questions {
     }
 
     //Select 4 choices of possible answers for the currentQuestion and identify the correctChoice
-    selectChoicesForTurn(fish, questions) {
+    selectChoicesForTurn(fish, questionset) {
       //shift should remove element from the questionSet array
-      this.correctChoice = questions.shift()
+      this.correctChoice = questionset.shift()
       let choices = []
       choices.push(this.correctChoice);
       let idx = fish.findIndex(x => x.name === this.correctChoice.name);
