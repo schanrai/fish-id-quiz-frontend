@@ -9,7 +9,7 @@ const subPrompt = document.querySelector('#subprompt')
 const form = document.querySelector('#form')
 const submitBtn = document.querySelector("#submit-answer")
 
-//let questions; -> you don't need this because you encapsultated in the game instance
+
 let newGame;
 
 //VIEWS + LISTENERS
@@ -27,13 +27,14 @@ function startGame(){
 }
 
 function continueGame(){
-    this.questions.selectChoicesForTurn(this.questions.fish, this.questions.questionSet)
-    //newGame.questionCounter++
+    this.questions.selectChoicesForTurn(
+      this.questions.fish, this.questions.questionSet)
 }
 
 contBtn.addEventListener('click', () => {
   newGame.newTurn()
 })
+
 
 form.addEventListener('submit', (event) => {
   event.preventDefault()
@@ -79,7 +80,7 @@ class Game {
  }
 
 
-// Initial Fetch from Fish Table
+// Initial Fetch from Fish Table - GET/Read
   gameFetch(){
    fetch(FISH_URL, { method: 'GET' })
     .then(resp => resp.json())
@@ -136,12 +137,10 @@ class Game {
       if (radioVal == this.questions.correctChoice.id){
         //correct
         ++newGame.score
-        //scorePercentage = this.scorePercent(this.score)
         console.log("line 132 checkAnswer score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
         //incorrect
-        //scorePercentage = this.scorePercent(this.score)
         console.log("line 137 checkAnswer incorrect score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-times-circle"></i> Wrong! The correct answer is ${this.questions.correctChoice.name}.`
       }
@@ -243,6 +242,8 @@ class Questions {
       }
       this.currentQuestion.push(array)
     }
+
+    
 
 
 }

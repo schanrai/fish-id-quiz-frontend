@@ -17,11 +17,46 @@ a.topbar-responsive-logo h3 {
   font-weight: bold;
 }
 
+/* sign-up and log-in form - copy from block on fsite */
+.floated-label-wrapper {
+  position: relative;
+}
 
-/* copy from block on fsite */
+.floated-label-wrapper label {
+  background: #fefefe;
+  color: #1779ba;
+  font-size: 0.75rem;
+  font-weight: 600;
+  left: 0.75rem;
+  opacity: 0;
+  padding: 0 0.25rem;
+  position: absolute;
+  top: 2rem;
+  transition: all 0.15s ease-in;
+  z-index: -1;
+}
+
+.floated-label-wrapper label input[type=text],
+.floated-label-wrapper label input[type=email],
+.floated-label-wrapper label input[type=password] {
+  border-radius: 4px;
+  font-size: 1.75em;
+  padding: 0.5em;
+}
+
+.floated-label-wrapper label.show {
+  opacity: 1;
+  top: -0.85rem;
+  z-index: 1;
+  transition: all 0.15s ease-in;
+}
+
+
+
+/* copied from block on fsite */
 .topbar-responsive {
   background: #07689F;
-  padding: 1rem 1.5rem;
+  padding: 0rem 1rem;
 }
 
 .topbar-responsive .topbar-responsive-logo {
@@ -49,6 +84,7 @@ a.topbar-responsive-logo h3 {
 .menu li + li {
    margin-left: 1em;
  }
+
 
 @media screen and (max-width: 39.9375em) {
 
