@@ -22,9 +22,9 @@
       <div id="topbar-responsive" class="topbar-responsive-links">
         <div class="top-bar-right">
           <ul class="menu vertical medium-horizontal">
-            <li><button type="button" id ="login" data-open="loginModal" class="button hollow topbar-responsive-button">Login</button></li>
+            <li><button type="button" id ="login-form" data-open="loginModal" class="button hollow topbar-responsive-button">Login</button></li>
             <li>
-              <button type="button" id ="signup" data-open="signupModal" class="button hollow topbar-responsive-button">Signup</button>
+              <button type="button"  data-open="signupModal" class="button hollow topbar-responsive-button">Signup</button>
             </li>
           </ul>
         </div>
@@ -34,19 +34,19 @@
 
     <!-- sign up modal -->
     <div class="tiny reveal" id="signupModal" data-reveal>
-      <form class="callout text-center">
+      <form class="text-center" id="signup-form">
         <h3>Register your account</h3>
         <div class="floated-label-wrapper">
           <label for="full-name">Username</label>
-          <input type="text" id="username" name="username" placeholder="Username">
+          <input type="text" id="username-signup" name="username" placeholder="Username">
         </div>
         <div class="floated-label-wrapper">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email input" placeholder="Email">
+          <input type="email" id="email-signup" name="email input" placeholder="Email">
         </div>
         <div class="floated-label-wrapper">
           <label for="pass">Password</label>
-          <input type="password" id="pass" name="password input" placeholder="Password">
+          <input type="password" id="pass-signup" name="password input" placeholder="Password">
 
         </div>
         <input class="button expanded" type="submit" id="signup" value="signup">

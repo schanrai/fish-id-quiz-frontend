@@ -1,4 +1,4 @@
-const BACKEND_URL = 'http://localhost:3000';
+const USERS_URL = 'http://localhost:3000/api/v1/users';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
 const numTurns = 3
 
@@ -8,7 +8,8 @@ const contBtn = document.querySelector('#continue')
 const subPrompt = document.querySelector('#subprompt')
 const form = document.querySelector('#form')
 const submitBtn = document.querySelector("#submit-answer")
-
+const signupForm = document.querySelector("#signupModal")
+const loginForm = document.querySelector("#login-form")
 
 let newGame;
 
@@ -18,13 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
   startGame()
 })
 
-
 function startGame(){
+  //add condition here to check if user logged-in
  startBtn.addEventListener('click', () => {
    updatePercentView("--")
     newGame = new Game()
   })
 }
+
+signupForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  User.createNewUser(e)
+})
 
 function continueGame(){
     this.questions.selectChoicesForTurn(
@@ -63,6 +69,37 @@ function updatePercentView(scorePercentage){
   percentCount.firstElementChild.innerText = scorePercentage
 }
 
+//USER CLASS
+
+class User {
+  constructor() {
+  }
+
+  static createNewUser(e){
+    const usernameInput = document.querySelector('#username-signup').value
+    const emailInput = document.querySelector('#email-signup').value
+    const passwordInput = document.querySelector('#pass-signup').value
+    const configSignup = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            'username': usernameInput,
+            'email': emailInput,
+            'password': passwordInput
+        })
+    }
+    fetch(USERS_URL, configSignup)
+        .then(response => response.json())
+        //.then(selectUser) //open profile
+        .then(user => console.log(user))
+  }
+
+
+
+}
 
 // GAME CLASS
 class Game {
@@ -243,7 +280,7 @@ class Questions {
       this.currentQuestion.push(array)
     }
 
-    
+
 
 
 }
