@@ -95,6 +95,7 @@ class User {
         .then(response => response.json())
         //.then(selectUser) //open profile
         .then(user => console.log(user))
+    $('#signupModal').foundation('close');    
   }
 
 
