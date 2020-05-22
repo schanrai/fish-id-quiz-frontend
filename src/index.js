@@ -1,5 +1,6 @@
 const USERS_URL = 'http://localhost:3000/api/v1/users';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
+const BASE_URL = 'http://localhost:3000/api/v1';
 const numTurns = 3
 
 const mainPrompt = document.querySelector('#prompt')
@@ -9,7 +10,7 @@ const subPrompt = document.querySelector('#subprompt')
 const form = document.querySelector('#form')
 const submitBtn = document.querySelector("#submit-answer")
 const signupForm = document.querySelector("#signupModal")
-const loginForm = document.querySelector("#login-form")
+const loginForm = document.querySelector("#loginModal")
 
 let newGame;
 
@@ -29,7 +30,12 @@ function startGame(){
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault()
-  User.createNewUser(e)
+  User.createNewUser()
+})
+
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  User.loginUser()
 })
 
 function continueGame(){
@@ -75,7 +81,7 @@ class User {
   constructor() {
   }
 
-  static createNewUser(e){
+  static createNewUser(){
     const usernameInput = document.querySelector('#username-signup').value
     const emailInput = document.querySelector('#email-signup').value
     const passwordInput = document.querySelector('#pass-signup').value
@@ -93,9 +99,35 @@ class User {
     }
     fetch(USERS_URL, configSignup)
         .then(response => response.json())
-        //.then(selectUser) //open profile
         .then(user => console.log(user))
-    $('#signupModal').foundation('close');    
+        //Show feedback/error on user feedback dialog
+        //the code below does not work! Cannot create property 'innerText' on string 'kladja1'
+        usernameInput.innerText = ''
+        emailInput.innerText = ''
+        passwordInput.innerText = ''
+    $('#signupModal').foundation('close');
+  }
+
+
+  static loginUser(){
+    const emailInput = document.querySelector('#email-login').value
+    const passwordInput = document.querySelector('#pass-login').value
+    const newSessionRequest = {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        'email': emailInput,
+        'password': passwordInput
+      })
+    }
+    return fetch(`${BASE_URL}/login`, newSessionRequest)
+      .then((response) => response.json())
+      .then(user => console.log(user))
+      $('#loginModal').foundation('close');
+
   }
 
 
