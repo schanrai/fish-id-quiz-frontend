@@ -1,4 +1,4 @@
-const USERS_URL = 'http://localhost:3000/api/v1/users';
+//const USERS_URL = 'http://localhost:3000/api/v1/users';
 const FISH_URL = 'http://localhost:3000/api/v1/fish';
 const BASE_URL = 'http://localhost:3000/api/v1';
 const numTurns = 3
@@ -82,9 +82,9 @@ class User {
   }
 
   static createNewUser(){
-    const usernameInput = document.querySelector('#username-signup').value
-    const emailInput = document.querySelector('#email-signup').value
-    const passwordInput = document.querySelector('#pass-signup').value
+    let usernameInput = document.querySelector('#username-signup').value
+    let emailInput = document.querySelector('#email-signup').value
+    let passwordInput = document.querySelector('#pass-signup').value
     const configSignup = {
         method: 'POST',
         headers: {
@@ -97,21 +97,19 @@ class User {
             'password': passwordInput
         })
     }
-    fetch(USERS_URL, configSignup)
+    fetch(`${BASE_URL}/users`, configSignup)
         .then(response => response.json())
         .then(user => console.log(user))
-        //Show feedback/error on user feedback dialog
-        //the code below does not work! Cannot create property 'innerText' on string 'kladja1'
-        usernameInput.innerText = ''
-        emailInput.innerText = ''
-        passwordInput.innerText = ''
+        document.querySelector('#username-signup').value = ""
+        document.querySelector('#email-signup').value = ""
+        document.querySelector('#pass-signup').value = ""
     $('#signupModal').foundation('close');
   }
 
 
   static loginUser(){
-    const emailInput = document.querySelector('#email-login').value
-    const passwordInput = document.querySelector('#pass-login').value
+    let emailInput = document.querySelector('#email-login').value
+    let passwordInput = document.querySelector('#pass-login').value
     const newSessionRequest = {
       method: 'POST',
       headers: {
@@ -123,14 +121,13 @@ class User {
         'password': passwordInput
       })
     }
-    return fetch(`${BASE_URL}/login`, newSessionRequest)
+    fetch(`${BASE_URL}/login`, newSessionRequest)
       .then((response) => response.json())
       .then(user => console.log(user))
-      $('#loginModal').foundation('close');
-
+      document.querySelector('#email-login').value = ""
+      document.querySelector('#pass-login').value = ""
+    $('#loginModal').foundation('close');
   }
-
-
 
 }
 
