@@ -1,5 +1,3 @@
-//const USERS_URL = 'http://localhost:3000/api/v1/users';
-const FISH_URL = 'http://localhost:3000/api/v1/fish';
 const BASE_URL = 'http://localhost:3000/api/v1';
 const numTurns = 3
 
@@ -85,6 +83,7 @@ class User {
     this.token = token;
   }
 
+
   static createNewUser(){
     let usernameInput = document.querySelector('#username-signup').value
     let emailInput = document.querySelector('#email-signup').value
@@ -103,7 +102,7 @@ class User {
     }
     fetch(`${BASE_URL}/users`, configSignup)
         .then(response => response.json())
-        .then(user => console.log(user))
+        .then(user => User.makePlayer(user))
         document.querySelector('#username-signup').value = ""
         document.querySelector('#email-signup').value = ""
         document.querySelector('#pass-signup').value = ""
@@ -127,18 +126,23 @@ class User {
     }
     fetch(`${BASE_URL}/login`, newSessionRequest)
       .then((response) => response.json())
-      .then(user => {
-       const attributes = [user.user.email, user.user.username, user.jwt]
-       const [email, username, token] = attributes;
-       debugger
-        player = new User(email, username, token)
-      })
+      .then(user => User.makePlayer(user))
       document.querySelector('#email-login').value = ""
       document.querySelector('#pass-login').value = ""
     $('#loginModal').foundation('close');
   }
 
+  static makePlayer(user){
+     const attributes = [user.user.email, user.user.username, user.jwt]
+     const [email, username, token] = attributes;
+      player = new User(email, username, token)
+      console.log(player)
+    }
+
+// END USER CLASS
 }
+
+
 
 // GAME CLASS
 class Game {
@@ -158,7 +162,7 @@ class Game {
 
 // Initial Fetch from Fish Table - GET/Read
   gameFetch(){
-   fetch(FISH_URL, { method: 'GET' })
+   fetch(`${BASE_URL}/fish`, { method: 'GET' })
     .then(resp => resp.json())
     .then(fishDataJSON => {
       this.questions = new Questions(fishDataJSON)
