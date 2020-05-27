@@ -51,6 +51,11 @@ a.topbar-responsive-logo h3 {
   transition: all 0.15s ease-in;
 }
 
+/* .log-in-form {
+  border: 1px solid #cacaca;
+  padding: 1rem;
+  border-radius: 0;
+} */
 
 
 /* copied from block on fsite */

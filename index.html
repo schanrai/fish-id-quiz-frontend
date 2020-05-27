@@ -19,11 +19,15 @@
         </span>
         <a class="topbar-responsive-logo " href="#"><h3> Fish Quiz </h3></a>
       </div>
+
       <div id="topbar-responsive" class="topbar-responsive-links">
         <div class="top-bar-right">
+          <!-- if user logged in then show Hi user whatever -->
           <ul class="menu vertical medium-horizontal">
+            <!-- change this to a profile button-->
             <li><button type="button" id ="login-form" data-open="loginModal" class="button hollow topbar-responsive-button">Login</button></li>
             <li>
+              <!-- change this to a Signout button-->
               <button type="button"  data-open="signupModal" class="button hollow topbar-responsive-button">Signup</button>
             </li>
           </ul>
@@ -70,6 +74,22 @@
         <input class="button expanded" type="submit" id="login" value="login">
       </form>
     </div>
+
+    <!--
+    <div class="tiny reveal" id="loginModal" data-reveal>
+      <form class="log-in-form">
+        <h4 class="text-center">Log in with you email account</h4>
+        <label>Email
+          <input type="email" id="email-login" placeholder="somebody@example.com">
+        </label>
+        <label>Password
+          <input type="password" id="pass-login" placeholder="Password">
+        </label>
+        <input id="show-password" type="checkbox"><label for="show-password">Show password</label>
+        <p><input type="submit" class="button expanded" id="login" value="Log in"></input></p>
+        <p class="text-center"><a href="#">Forgot your password?</a></p>
+      </form>
+    </div> -->
 
     <div class="grid-container full">
       <!-- start feedback/Error area -->

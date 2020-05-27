@@ -13,6 +13,7 @@ const signupForm = document.querySelector("#signupModal")
 const loginForm = document.querySelector("#loginModal")
 
 let newGame;
+let player;
 
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
@@ -78,7 +79,10 @@ function updatePercentView(scorePercentage){
 //USER CLASS
 
 class User {
-  constructor() {
+  constructor(email, username, token) {
+    this.email = email;
+    this.username = username;
+    this.token = token;
   }
 
   static createNewUser(){
@@ -123,7 +127,12 @@ class User {
     }
     fetch(`${BASE_URL}/login`, newSessionRequest)
       .then((response) => response.json())
-      .then(user => console.log(user))
+      .then(user => {
+       const attributes = [user.user.email, user.user.username, user.jwt]
+       const [email, username, token] = attributes;
+       debugger
+        player = new User(email, username, token)
+      })
       document.querySelector('#email-login').value = ""
       document.querySelector('#pass-login').value = ""
     $('#loginModal').foundation('close');
