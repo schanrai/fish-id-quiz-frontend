@@ -176,16 +176,33 @@ class Game {
      headers: headers,
       })
     .then(resp => resp.json())
-    .then(fishDataJSON => {
-      debugger
-      this.questions = new Questions(fishDataJSON)
-      this.gameInit()
-      })
     .catch((error) => {
       console.error(error)
     })
-
+    .then(fishDataJSON => {
+      if (fishDataJSON.message){
+        console.log(fishDataJSON.message);
+        return fishDataJSON.message
+      } else {
+      this.questions = new Questions(fishDataJSON)
+      this.gameInit()
+      }
+    })
   }
+
+//   fetch(url).then((response) => {
+//   if (response.ok) {
+//     return response.json();
+//   } else {
+//     throw new Error('Something went wrong');
+//   }
+// })
+// .then((responseJson) => {
+//   // Do something with the response
+// })
+// .catch((error) => {
+//   console.log(error)
+// });
 
   gameInit(){
     form.classList.remove('hide')
