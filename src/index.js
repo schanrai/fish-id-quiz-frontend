@@ -73,6 +73,13 @@ function updatePercentView(scorePercentage){
   percentCount.firstElementChild.innerText = scorePercentage
 }
 
+function showAlert(alertMsg){
+  // unhide the div - whole thing or just alert?
+  // populate the message in the span with the alertMsg
+  //how to distiguish between success and error?
+  //
+}
+
 //USER CLASS
 
 class User {
