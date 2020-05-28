@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function startGame(){
-  //add condition here to check if user logged-in
  startBtn.addEventListener('click', () => {
    updatePercentView("--")
     newGame = new Game()
@@ -132,12 +131,15 @@ class User {
     $('#loginModal').foundation('close');
   }
 
+
   static makePlayer(user){
      const attributes = [user.user.email, user.user.username, user.jwt]
      const [email, username, token] = attributes;
-      player = new User(email, username, token)
-      console.log(player)
-    }
+     player = new User(email, username, token)
+     console.log(player)
+
+  }
+
 
 // END USER CLASS
 }
@@ -162,9 +164,20 @@ class Game {
 
 // Initial Fetch from Fish Table - GET/Read
   gameFetch(){
-   fetch(`${BASE_URL}/fish`, { method: 'GET' })
+    let headers = {}
+    if (player){
+      headers = {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${player.token}`
+      }
+    }
+   fetch(`${BASE_URL}/fish`, {
+     method: 'GET',
+     headers: headers,
+      })
     .then(resp => resp.json())
     .then(fishDataJSON => {
+      debugger
       this.questions = new Questions(fishDataJSON)
       this.gameInit()
       })
