@@ -24,12 +24,12 @@
         <div class="top-bar-right">
           <!-- if user logged in then show Hi user whatever -->
           <ul class="menu vertical medium-horizontal">
-            <!-- change this to a profile button-->
-            <li><button type="button" id ="login-form" data-open="loginModal" class="button hollow topbar-responsive-button">Login</button></li>
             <li>
               <!-- change this to a Signout button-->
               <button type="button"  data-open="signupModal" class="button hollow topbar-responsive-button">Signup</button>
             </li>
+            <!-- change this to a profile button-->
+            <li><button type="button" id ="login-form" data-open="loginModal" class="button hollow topbar-responsive-button">Login</button></li>
           </ul>
         </div>
       </div>
@@ -83,9 +83,9 @@
       <!-- add class tp hide it -->
       <div class="hide grid-x grid-margin-y align-center" id="alert-sect">
         <div class="cell medium-8">
-          <div data-closable class="alert-box callout alert">
+          <div data-closable class="alert-box callout alert" >
             <!-- <i class="fa fa-ban"></i>  -->
-            <span>Email doesn't match our records. Please try again.</span>
+            <span id="alert-text">Email doesn't match our records. Please try again.</span>
               <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
             <span aria-hidden="true">&CircleTimes;</span>
             </button>

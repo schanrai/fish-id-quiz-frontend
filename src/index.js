@@ -74,10 +74,10 @@ function updatePercentView(scorePercentage){
 }
 
 function showAlert(alertMsg){
-  // unhide the div - whole thing or just alert?
-  // populate the message in the span with the alertMsg
-  //how to distiguish between success and error?
-  //
+  const alertText = document.querySelector('#alert-text')
+  alertText.innerText = alertMsg
+  const alertSect = document.querySelector('#alert-sect')
+  alertSect.classList.remove('hide')
 }
 
 //USER CLASS
@@ -144,9 +144,7 @@ class User {
      const [email, username, token] = attributes;
      player = new User(email, username, token)
      console.log(player)
-
   }
-
 
 // END USER CLASS
 }
@@ -178,24 +176,26 @@ class Game {
         'Authorization': `Bearer ${player.token}`
       }
     }
-   fetch(`${BASE_URL}/fish`, {
-     method: 'GET',
-     headers: headers,
+     fetch(`${BASE_URL}/fish`, {
+       method: 'GET',
+       headers: headers,
+        })
+      .then(resp => resp.json())
+      .then(fishDataJSON => {
+        if (!fishDataJSON.ok){
+          throw new Error(fishDataJSON.messages)
+          return
+        }
+        this.questions = new Questions(fishDataJSON)
+        this.gameInit()
+        }
+      )
+      .catch((error) => {
+        console.error(error)
+        const alertMsg = error
+        showAlert(alertMsg)
       })
-    .then(resp => resp.json())
-    .catch((error) => {
-      console.error(error)
-    })
-    .then(fishDataJSON => {
-      if (fishDataJSON.message){
-        console.log(fishDataJSON.message);
-        return fishDataJSON.message
-      } else {
-      this.questions = new Questions(fishDataJSON)
-      this.gameInit()
-      }
-    })
-  }
+    }
 
 
   gameInit(){
