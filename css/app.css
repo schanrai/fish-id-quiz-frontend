@@ -51,11 +51,50 @@ a.topbar-responsive-logo h3 {
   transition: all 0.15s ease-in;
 }
 
-/* .log-in-form {
-  border: 1px solid #cacaca;
-  padding: 1rem;
-  border-radius: 0;
-} */
+/* alert error messaging */
+
+.alert-box {
+  padding-right: 3.25rem;
+  width: 100%;
+}
+
+.alert-box.callout {
+  color: #fff;
+  font-weight: bold;
+}
+
+.alert-box.alert {
+  border: 2px solid #cc4b37;
+  border-radius: 5px;
+  background-color: rgba(204, 75, 55, 0.2);
+}
+
+
+.alert-box.success {
+  border: 2px solid #3adb76;
+  border-radius: 5px;
+  background-color: rgba(58, 219, 118, 0.2);
+}
+
+
+.alert-box i {
+  border: 2px solid #fefefe;
+  border-radius: 50%;
+  padding: .3em .325em;
+  margin-right: 0.5rem;
+}
+
+.alert-box .close-button {
+  color: rgba(254, 254, 254, 0.5);
+  font-size: 2rem;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 1rem;
+  font-weight: bold;
+}
 
 
 /* copied from block on fsite */

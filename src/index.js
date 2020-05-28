@@ -190,19 +190,6 @@ class Game {
     })
   }
 
-//   fetch(url).then((response) => {
-//   if (response.ok) {
-//     return response.json();
-//   } else {
-//     throw new Error('Something went wrong');
-//   }
-// })
-// .then((responseJson) => {
-//   // Do something with the response
-// })
-// .catch((error) => {
-//   console.log(error)
-// });
 
   gameInit(){
     form.classList.remove('hide')
