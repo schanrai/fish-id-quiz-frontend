@@ -117,8 +117,8 @@ class User {
 
 
   static loginUser(){
-    let emailInput = document.querySelector('#email-login').value
-    let passwordInput = document.querySelector('#pass-login').value
+    let emailInput = document.querySelector('#email-login')
+    let passwordInput = document.querySelector('#pass-login')
     const newSessionRequest = {
       method: 'POST',
       headers: {
@@ -126,16 +126,26 @@ class User {
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        'email': emailInput,
-        'password': passwordInput
+        'email': emailInput.value,
+        'password': passwordInput.value
       })
-    }
+    };
     fetch(`${BASE_URL}/login`, newSessionRequest)
       .then((response) => response.json())
-      .then(user => User.makePlayer(user))
-      document.querySelector('#email-login').value = ""
-      document.querySelector('#pass-login').value = ""
-    $('#loginModal').foundation('close');
+      .then(user => {
+        if (!!user.messages){
+          throw new Error(user.messages)
+        } else {
+          User.makePlayer(user)}
+      })
+      .catch((error) => {
+        console.error(error)
+        const alertMsg = error
+        showAlert(alertMsg)
+      })
+      emailInput.value =""
+      passwordInput.value = ""
+      $('#loginModal').foundation('close')
   }
 
 
@@ -182,7 +192,7 @@ class Game {
         })
       .then(resp => resp.json())
       .then(fishDataJSON => {
-        if (!fishDataJSON.ok){
+        if (!!fishDataJSON.messages){
           throw new Error(fishDataJSON.messages)
           return
         }
@@ -191,7 +201,7 @@ class Game {
         }
       )
       .catch((error) => {
-        console.error(error)
+        // console.error(error)
         const alertMsg = error
         showAlert(alertMsg)
       })
