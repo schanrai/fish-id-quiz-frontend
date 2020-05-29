@@ -77,7 +77,7 @@ function showAlert(alertMsg){
   const alertText = document.querySelector('#alert-text')
   alertText.innerText = alertMsg
   const alertSect = document.querySelector('#alert-sect')
-  alertSect.classList.remove('hide')
+  alertSect.style = "display: block"
 }
 
 //USER CLASS
@@ -91,9 +91,9 @@ class User {
 
 
   static createNewUser(){
-    let usernameInput = document.querySelector('#username-signup').value
-    let emailInput = document.querySelector('#email-signup').value
-    let passwordInput = document.querySelector('#pass-signup').value
+    let usernameInput = document.querySelector('#username-signup')
+    let emailInput = document.querySelector('#email-signup')
+    let passwordInput = document.querySelector('#pass-signup')
     const configSignup = {
         method: 'POST',
         headers: {
@@ -101,18 +101,28 @@ class User {
             'Accept': 'application/json'
         },
         body: JSON.stringify({
-            'username': usernameInput,
-            'email': emailInput,
-            'password': passwordInput
+            'username': usernameInput.value,
+            'email': emailInput.value,
+            'password': passwordInput.value
         })
     }
     fetch(`${BASE_URL}/users`, configSignup)
         .then(response => response.json())
-        .then(user => User.makePlayer(user))
-        document.querySelector('#username-signup').value = ""
-        document.querySelector('#email-signup').value = ""
-        document.querySelector('#pass-signup').value = ""
-    $('#signupModal').foundation('close');
+        .then(user => {
+          if (!!user.messages){
+            throw new Error(user.messages)
+          } else {
+            User.makePlayer(user)}
+        })
+        .catch((error) => {
+          console.error(error)
+          const alertMsg = error
+          showAlert(alertMsg)
+        })
+        usernameInput.value = ""
+        emailInput.value = ""
+        passwordInput.value = ""
+        $('#signupModal').foundation('close');
   }
 
 
