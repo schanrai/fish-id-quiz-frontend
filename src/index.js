@@ -80,6 +80,23 @@ function showAlert(alertMsg){
   alertSect.style = "display: block"
 }
 
+function showSuccess(alertMsg){
+  const alertSect = document.querySelector('#alert-sect')
+  alertSect.classList.remove('alert')
+  alertSect.classList.add('success')
+  const alertText = document.querySelector('#alert-text')
+  alertText.innerText = alertMsg
+  alertSect.style = "display: block"
+}
+
+function showLoggedInView(){
+
+  // show success message argument to showSucess()
+  // change the button text for Signup to profile
+  // change the buttin text for Login to logout
+  // add consitional logic to implement attribute on SignupModal, or changes the ID on which  triggers another Profile modal
+}
+
 //USER CLASS
 
 class User {
@@ -147,6 +164,8 @@ class User {
           throw new Error(user.messages)
         } else {
           User.makePlayer(user)}
+          let alertMsg = "Success! You are now logged-in"
+          showSuccess(alertMsg)
       })
       .catch((error) => {
         console.error(error)
@@ -164,6 +183,7 @@ class User {
      const [email, username, token] = attributes;
      player = new User(email, username, token)
      console.log(player)
+     showLoggedInView()
   }
 
 // END USER CLASS
