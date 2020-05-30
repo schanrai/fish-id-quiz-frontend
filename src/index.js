@@ -130,6 +130,8 @@ class User {
             throw new Error(user.messages)
           } else {
             User.makePlayer(user)}
+            let alertMsg = "Success! You are registered and logged-in."
+            showSuccess(alertMsg)
         })
         .catch((error) => {
           console.error(error)
