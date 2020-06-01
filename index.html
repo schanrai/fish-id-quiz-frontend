@@ -25,11 +25,11 @@
           <!-- if user logged in then show Hi user whatever -->
           <ul class="menu vertical medium-horizontal">
             <li>
-              <!-- change this to a Signout button-->
-              <button type="button"  data-open="signupModal" class="button hollow topbar-responsive-button">Signup</button>
+              <!-- Signout/Profile button-->
+              <button type="button" id = "signup-profile-btn" data-open="signupModal" class="button hollow topbar-responsive-button">Signup</button>
             </li>
-            <!-- change this to a profile button-->
-            <li><button type="button" id ="login-form" data-open="loginModal" class="button hollow topbar-responsive-button">Login</button></li>
+            <!-- Login/Logout Button-->
+            <li><button type="button" id ="login-btn" data-open="loginModal" class="button hollow topbar-responsive-button">Login</button></li>
           </ul>
         </div>
       </div>
@@ -75,6 +75,10 @@
         </div>
         <input class="button expanded" type="submit" id="login" value="login">
       </form>
+    </div>
+    <!-- Profile modal -->
+    <div class="tiny reveal" id="profileModal" data-reveal>
+      <p>Testing</p>
     </div>
 
 
@@ -162,6 +166,7 @@
     <script src="js/app.js"></script>
     <script src="src/index.js"></script>
     <script src="src/game.js"></script>
+    <script src="src/questions.js"></script>
     <script src="https://kit.fontawesome.com/391d2706e7.js" crossorigin="anonymous"></script>
   </body>
 </html>
