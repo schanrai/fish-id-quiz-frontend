@@ -109,7 +109,6 @@ function logoutAction() {
     signupBtn.setAttribute('data-open','signupModal')
     signupBtn.setAttribute('aria-controls','signupModal')
     signupBtn.innerText = "Signup"
-
   })
 }
 
@@ -202,6 +201,37 @@ class User {
      player = new User(email, username, token)
      console.log(player)
      showLoggedInView()
+  }
+
+  static saveScore(finalScore){
+    let headers = {}
+    if (player){
+      headers = {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${player.token}`
+      }
+    }
+    const scorePost = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        'score': finalScore
+      })
+    };
+    fetch(`${BASE_URL}/game_histories`, scorePost)
+    .then((response) => response.json())
+    .then(game_history => {
+      if (!!game_history.messages){
+        throw new Error(game_history.messages)
+      } else {
+        let alertMsg = "Score updated to profile."
+        showSuccess(alertMsg)}
+    })
+    .catch((error) => {
+      console.error(error)
+      const alertMsg = error
+      showAlert(alertMsg)
+    })
   }
 
 

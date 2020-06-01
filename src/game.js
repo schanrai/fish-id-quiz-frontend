@@ -120,6 +120,8 @@ class Game {
     startBtn.classList.remove('hide')
     contBtn.classList.add('hide')
     form.classList.add('hide')
+    let finalScore = this.scorePercent(this.score)
+    User.saveScore(finalScore)
       if (this.score >= (this.questionCounter/2)){
         mainPrompt.innerHTML = `<i class="far fa-thumbs-up"></i> Well done! You scored ${newGame.scorePercent(this.score)}%`
         subPrompt.innerText ="Why not play another game?"
