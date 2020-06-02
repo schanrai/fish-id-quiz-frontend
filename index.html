@@ -24,8 +24,12 @@
         <div class="top-bar-right">
           <!-- if user logged in then show Hi user whatever -->
           <ul class="menu vertical medium-horizontal">
+            <!-- Profile button-->
             <li>
-              <!-- Signout/Profile button-->
+              <button type="button" class= "hide button hollow topbar-responsive-button" id ="profile-btn" data-open="profileModal" class="">Profile</button>
+            </li>
+            <!-- Signout/Profile button-->
+            <li>
               <button type="button" id = "signup-profile-btn" data-open="signupModal" class="button hollow topbar-responsive-button">Signup</button>
             </li>
             <!-- Login/Logout Button-->
@@ -55,7 +59,7 @@
           <input type="password" id="pass-signup" name="password input" placeholder="Password">
 
         </div>
-        <input class="button expanded" type="submit" id="signup" value="signup">
+        <input class="button expanded" type="submit" id="signup" value="Signup">
       </form>
     </div>
     <!-- Log-in modal -->
@@ -73,7 +77,7 @@
         <div class="text-left">
           <input id="show-password" type="checkbox"><label for="show-password">Show password</label>
         </div>
-        <input class="button expanded" type="submit" id="login" value="login">
+        <input class="button expanded" type="submit" id="login" value="Login">
       </form>
     </div>
     <!-- Profile modal -->
@@ -165,6 +169,7 @@
     <script src="js/vendor/foundation.js"></script>
     <script src="js/app.js"></script>
     <script src="src/index.js"></script>
+    <script src="src/user.js"></script>
     <script src="src/game.js"></script>
     <script src="src/questions.js"></script>
     <script src="https://kit.fontawesome.com/391d2706e7.js" crossorigin="anonymous"></script>
