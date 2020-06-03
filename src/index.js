@@ -10,7 +10,7 @@ const submitBtn = document.querySelector("#submit-answer")
 const signupForm = document.querySelector("#signupModal")
 const loginForm = document.querySelector("#loginModal")
 const loginBtn = document.querySelector("#login-btn")
-const signupBtn = document.querySelector('#signup-profile-btn')
+const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
 
 let newGame;
@@ -23,12 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
   startGame()
 })
 
-function startGame(){
- startBtn.addEventListener('click', () => {
-   updatePercentView("--")
-    newGame = new Game()
-  })
-}
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -40,10 +34,11 @@ loginForm.addEventListener('submit', (e) => {
   User.loginUser()
 })
 
-function continueGame(){
-    this.questions.selectChoicesForTurn(
-      this.questions.fish, this.questions.questionSet)
-}
+profileBtn.addEventListener('click',(e) => {
+  e.preventDefault()
+ player.getGameHistory()
+})
+
 
 contBtn.addEventListener('click', () => {
   newGame.newTurn()
@@ -56,6 +51,18 @@ form.addEventListener('submit', (event) => {
   newGame.checkAnswer(radioVal)
 })
 
+
+function startGame(){
+ startBtn.addEventListener('click', () => {
+   updatePercentView("--")
+    newGame = new Game()
+  })
+}
+
+function continueGame(){
+    this.questions.selectChoicesForTurn(
+      this.questions.fish, this.questions.questionSet)
+}
 
 function getRadioVal(form, name) {
     let val;

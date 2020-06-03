@@ -3,6 +3,7 @@ class User {
     this.email = email;
     this.username = username;
     this.token = token;
+    this.game_history = {};
   }
 
 
@@ -44,7 +45,7 @@ class User {
   }
 
 
-  static loginUser(){
+   static loginUser(){
     let emailInput = document.querySelector('#email-login')
     let passwordInput = document.querySelector('#pass-login')
     const newSessionRequest = {
@@ -64,7 +65,8 @@ class User {
         if (!!user.messages){
           throw new Error(user.messages)
         } else {
-          User.makePlayer(user)}
+        User.makePlayer(user)
+      }
           let alertMsg = "Success! You are now logged-in"
           showSuccess(alertMsg)
       })
@@ -79,13 +81,14 @@ class User {
   }
 
 
-  static makePlayer(user){
+    static makePlayer(user){
      const attributes = [user.user.email, user.user.username, user.jwt]
      const [email, username, token] = attributes;
      player = new User(email, username, token)
      console.log(player)
      showLoggedInView()
   }
+
 
   static saveScore(finalScore){
     let headers = {}
@@ -118,5 +121,35 @@ class User {
     })
   }
 
+ getGameHistory(){
+    let headers = {}
+    if (player){
+      headers = {
+        'Content-type': 'application/json',
+        'Authorization': `Bearer ${player.token}`
+      }
+    }
+    fetch(`${BASE_URL}/game_histories`, {
+      method: 'GET',
+      headers: headers,
+       })
+     .then(resp => resp.json())
+     .then(gameHistoryJSON => {
+       if (!!gameHistoryJSON.messages){
+         throw new Error(gameHistoryJSON.messages)
+         return
+       }
+       console.log(gameHistoryJSON)
+       debugger
+       //assign it to the users attribute
+       }
+     )
+     .catch((error) => {
+       // console.error(error)
+       const alertMsg = error
+       showAlert(alertMsg)
+     })
+  }
 
+//END USER CLASS
 }
