@@ -6,7 +6,6 @@ class User {
     User.current_player = undefined
   }
 
-//change this to instance method and call it with player
 saveScore(finalScore){
     let headers = {}
     if (!!User.current_player){

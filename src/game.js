@@ -50,6 +50,7 @@ class Game {
   }
 
   newTurn(){
+
     subPrompt.classList.add('hide')
     contBtn.classList.add('hide')
     startBtn.classList.add('hide')
@@ -61,6 +62,7 @@ class Game {
     let choiceThree = document.querySelector('#choiceThree')
     let choiceFour = document.querySelector('#choiceFour')
 // REFACTOR
+
     choiceOne.checked = false
     choiceOne.value = this.questions.currentQuestion[0][0].id
     choiceOne.labels[0].innerText = this.questions.currentQuestion[0][0].name

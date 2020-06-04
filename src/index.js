@@ -16,7 +16,6 @@ const profileBtn = document.querySelector('#profile-btn')
 let newGame;
 
 
-
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
   startGame()
@@ -126,11 +125,23 @@ function renderProfile(gameHistoryJSON){
   if (!gameHistoryJSON || !gameHistoryJSON.length) {
     return
   } else {
+  calcUserStats(gameHistoryJSON)
   const score =  document.querySelector('#score')
   const date =  document.querySelector('#date')
   gameHistoryJSON.map(x => {
+    var d = new Date(x.created_at)
+    var n = d.toLocaleDateString()
     score.innerHTML += `<li>${x.score}</li>`
-    date.innerHTML += `<li>${x.created_at}</li>`
+    date.innerHTML += `<li>${n}</li>`
       })
     }
   }
+
+function calcUserStats(gameHistoryJSON){
+  let result
+  result = Math.max(...gameHistoryJSON.map(elem => elem.score))
+  const quizzes =  document.querySelector('#quizzes-total')
+  const highScore =  document.querySelector('#high-score')
+  quizzes.innerText = `Quizzes taken: ${gameHistoryJSON.length}`
+  highScore.innerText = `High score: ${result}`
+}
