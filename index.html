@@ -83,15 +83,24 @@
     <!-- Profile modal -->
     <div class="tiny reveal" id="profileModal" data-reveal>
       <div class="text-center">
-        <h3>User Name</h3>
+        <h2 id="username">Username</h2>
+        <p> Quizzes taken: 0</small></p>
+        <p> High Score: 0</small></p>
         <hr>
       </div>
       <div class="grid-x small-up-2 ">
-        <div class="cell">
-          <h4>Highest Score(%)</h4>
+        <div class="cell float-left">
+          <h5>Score</h5>
+          <ul id="score">
+
+          </ul>
+
         </div>
-        <div class="cell">
-          <h4>Date</h4>
+        <div class="cell float-right" >
+          <h5>Date</h5>
+          <ul id="date">
+
+          </ul>
         </div>
       </div>
 
@@ -129,7 +138,7 @@
           <!--startBtn-->
           <button class="expanded button" id="start">Start Game</button>
           <!--ContBtn-->
-          <button class="expanded button" id="continue">Continue Game</button>
+          <button class="hide expanded button" id="continue">Continue Game</button>
 
         <!-- form/radios section-->
         <form id="form" class="hide">
@@ -182,6 +191,7 @@
     <script src="js/vendor/foundation.js"></script>
     <script src="js/app.js"></script>
     <script src="src/index.js"></script>
+    <script src="src/auth.js"></script>
     <script src="src/user.js"></script>
     <script src="src/game.js"></script>
     <script src="src/questions.js"></script>

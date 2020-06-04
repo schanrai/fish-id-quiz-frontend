@@ -3,8 +3,8 @@ class Game {
  constructor() {
    this.score = 0
    this.questionCounter = 0
-   this.gameFetch()
    this.questions = {}
+   this.gameFetch()
   }
 
  scorePercent(score){
@@ -16,10 +16,10 @@ class Game {
 // Initial Fetch from Fish Table - GET/Read
   gameFetch(){
     let headers = {}
-    if (player){
+    if (!!User.current_player){
       headers = {
         'Content-type': 'application/json',
-        'Authorization': `Bearer ${player.token}`
+        'Authorization': `Bearer ${User.current_player.token}`
       }
     }
      fetch(`${BASE_URL}/fish`, {
@@ -121,7 +121,7 @@ class Game {
     contBtn.classList.add('hide')
     form.classList.add('hide')
     let finalScore = this.scorePercent(this.score)
-    User.saveScore(finalScore)
+    User.current_player.saveScore(finalScore)
       if (this.score >= (this.questionCounter/2)){
         mainPrompt.innerHTML = `<i class="far fa-thumbs-up"></i> Well done! You scored ${newGame.scorePercent(this.score)}%`
         subPrompt.innerText ="Why not play another game?"

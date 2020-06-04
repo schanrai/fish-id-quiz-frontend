@@ -14,29 +14,28 @@ const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
 
 let newGame;
-let player;
+
 
 
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
-  contBtn.classList.add('hide')
   startGame()
 })
 
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault()
-  User.createNewUser()
+  createNewUser()
 })
 
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault()
-  User.loginUser()
+  loginUser()
 })
 
 profileBtn.addEventListener('click',(e) => {
   e.preventDefault()
- player.getGameHistory()
+  User.current_player.getGameHistory()
 })
 
 
@@ -110,7 +109,7 @@ function showLoggedInView(){
 
 function logoutAction() {
   loginBtn.addEventListener('click', () => {
-    player = null
+    User.current_player = null
     loginBtn.innerText = "Login"
     loginBtn.setAttribute('data-open','loginModal')
     profileBtn.classList.add('hide')
@@ -118,3 +117,20 @@ function logoutAction() {
     window.location.reload()
   })
 }
+
+function renderProfile(gameHistoryJSON){
+  score.innerHTML = ""
+  date.innerHTML = ""
+  const profileUsername = document.querySelector('#username')
+  profileUsername.innerText = `${User.current_player.username}`
+  if (!gameHistoryJSON || !gameHistoryJSON.length) {
+    return
+  } else {
+  const score =  document.querySelector('#score')
+  const date =  document.querySelector('#date')
+  gameHistoryJSON.map(x => {
+    score.innerHTML += `<li>${x.score}</li>`
+    date.innerHTML += `<li>${x.created_at}</li>`
+      })
+    }
+  }
