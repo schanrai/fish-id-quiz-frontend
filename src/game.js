@@ -33,7 +33,8 @@ class Game {
           return
         }
         this.questions = new Questions(fishDataJSON)
-        this.gameInit()
+        form.classList.remove('hide')
+        this.newTurn()
         }
       )
       .catch((error) => {
@@ -44,13 +45,7 @@ class Game {
     }
 
 
-  gameInit(){
-    form.classList.remove('hide')
-    this.newTurn()
-  }
-
   newTurn(){
-
     subPrompt.classList.add('hide')
     contBtn.classList.add('hide')
     startBtn.classList.add('hide')
@@ -89,6 +84,7 @@ class Game {
       if (radioVal == this.questions.correctChoice.id){
         //correct
         ++newGame.score
+        //save score to session
         console.log("line 132 checkAnswer score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
@@ -111,9 +107,15 @@ class Game {
     if (this.questions.questionSet.length == 0){
       this.endGame()
     } else {
-      continueGame.apply(this)
+      //continueGame.apply(this)
+      this.continueGame()
     }
   }
+
+  continueGame(){
+     this.questions.selectChoicesForTurn(
+       this.questions.fish, this.questions.questionSet)
+ }
 
   endGame(){
     contBtn.removeEventListener('click', () => {

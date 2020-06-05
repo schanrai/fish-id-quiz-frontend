@@ -57,10 +57,6 @@ function startGame(){
   })
 }
 
-function continueGame(){
-    this.questions.selectChoicesForTurn(
-      this.questions.fish, this.questions.questionSet)
-}
 
 function getRadioVal(form, name) {
     let val;
