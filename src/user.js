@@ -56,7 +56,6 @@ saveScore(finalScore){
          throw new Error(gameHistoryJSON.messages)
          return
        }
-       console.log(gameHistoryJSON)
        renderProfile(gameHistoryJSON)
        }
      )

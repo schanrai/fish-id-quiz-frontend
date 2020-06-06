@@ -25,6 +25,7 @@ class Questions {
 
     //Select 4 choices of possible answers for the currentQuestion and identify the correctChoice
     selectChoicesForTurn(fish, questionset) {
+      console.log(fish, questionset)
       //shift should remove element from the questionSet array
       this.correctChoice = questionset.shift()
       let choices = []
@@ -41,6 +42,7 @@ class Questions {
        choices = [...choices, ...results]; //combine noneFish and samefish category
       } else {
         choices.push(results[0], results[1], results[2]) //push in first 3 results of same category find to populate questions
+        console.log(choices)
         this.shuffleQuestions(choices)
       }
     }
@@ -50,6 +52,7 @@ class Questions {
       if (this.currentQuestion.length > 0){
         this.currentQuestion = []
       }
+      console.log(this.currentQuestion)
       for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         let temp = array[i]
@@ -57,6 +60,7 @@ class Questions {
         array[j] = temp
       }
       this.currentQuestion.push(array)
+      console.log(this.currentQuestion)
     }
 
 

@@ -45,6 +45,7 @@ class Game {
     }
 
 
+
   newTurn(){
     subPrompt.classList.add('hide')
     contBtn.classList.add('hide')
@@ -71,7 +72,7 @@ class Game {
     choiceFour.value = this.questions.currentQuestion[0][3].id
     choiceFour.labels[0].innerText = this.questions.currentQuestion[0][3].name
     ++this.questionCounter
-    console.log("line 121 questionCounter", this.questionCounter)
+    console.log("current question", this.questions.currentQuestion)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${this.questions.correctChoice.image_url}`
@@ -85,11 +86,9 @@ class Game {
         //correct
         ++newGame.score
         //save score to session
-        console.log("line 132 checkAnswer score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
         //incorrect
-        console.log("line 137 checkAnswer incorrect score", this.score)
         mainPrompt.innerHTML = `<i class="far fa-times-circle"></i> Wrong! The correct answer is ${this.questions.correctChoice.name}.`
       }
     scorePercentage = this.scorePercent(this.score)
@@ -113,6 +112,7 @@ class Game {
   }
 
   continueGame(){
+    console.log("inside the continueGame method")
      this.questions.selectChoicesForTurn(
        this.questions.fish, this.questions.questionSet)
  }
