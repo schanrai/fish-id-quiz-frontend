@@ -19,7 +19,7 @@ function loginUser(){
         throw new Error(user.messages)
       } else {
       User.current_player = new User(user)
-      console.log(User.current_player)
+      sessionStorage.setItem('player',JSON.stringify(User.current_player))
     }
         let alertMsg = "Success! You are now logged-in"
         showSuccess(alertMsg)
@@ -58,6 +58,7 @@ function createNewUser(){
          throw new Error(user.messages)
        } else {
         User.current_player = new User(user)
+        sessionStorage.setItem('player',JSON.stringify(User.current_player))
        }
          let alertMsg = "Success! You are registered and logged-in."
          showSuccess(alertMsg)
@@ -72,4 +73,9 @@ function createNewUser(){
      emailInput.value = ""
      passwordInput.value = ""
      $('#signupModal').foundation('close');
+}
+
+
+const currentUser = () => {
+  return JSON.parse(sessionStorage.getItem('player'))
 }
