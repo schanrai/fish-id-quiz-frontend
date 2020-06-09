@@ -39,11 +39,13 @@ saveScore(finalScore){
 
 
  getGameHistory(){
+   debugger
     let headers = {}
-    if (!!User.current_player){
+    let player = currentUser()
+      if (player != null){
       headers = {
         'Content-type': 'application/json',
-        'Authorization': `Bearer ${User.current_player.token}`
+        'Authorization': `Bearer ${player.token}`
       }
     }
     fetch(`${BASE_URL}/game_histories`, {
@@ -65,6 +67,8 @@ saveScore(finalScore){
        showAlert(alertMsg)
      })
   }
+
+
 
 //END USER CLASS
 }
