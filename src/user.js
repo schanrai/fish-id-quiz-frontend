@@ -39,13 +39,17 @@ saveScore(finalScore){
 
 
  getGameHistory(){
-   debugger
     let headers = {}
+    debugger
     let player = currentUser()
-      if (player != null){
+    //refactor below to if (player)
+    //should you make the above global so you don't have to keep calling it again and again? Keep it DRY
+    //or should I carry on using User.current_player and just populate it in the event of a page reload?
+      if (!!player){
       headers = {
         'Content-type': 'application/json',
-        'Authorization': `Bearer ${player.token}`
+        //'Authorization': `Bearer ${player.token}`
+        'Authorization': `Bearer ${User.current_player.token}`
       }
     }
     fetch(`${BASE_URL}/game_histories`, {

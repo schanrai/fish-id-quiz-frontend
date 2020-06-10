@@ -18,6 +18,7 @@ function loginUser(){
       if (!!user.messages){
         throw new Error(user.messages)
       } else {
+        //let player = new User(user)
       User.current_player = new User(user)
       sessionStorage.setItem('player',JSON.stringify(User.current_player))
     }

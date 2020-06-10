@@ -85,7 +85,7 @@ class Game {
       if (radioVal == this.questions.correctChoice.id){
         //correct
         ++newGame.score
-        //save score to session
+        //save score to sessionStorage
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
         //incorrect
@@ -113,6 +113,7 @@ class Game {
 
   continueGame(){
     console.log("inside the continueGame method")
+    //if you already have something in storage then pick it up
      this.questions.selectChoicesForTurn(
        this.questions.fish, this.questions.questionSet)
  }

@@ -18,6 +18,7 @@ let newGame;
 
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
+  //if currentUser, showLoggedInView or else
   startGame()
 })
 
