@@ -59,7 +59,7 @@ class Questions {
         array[i] = array[j]
         array[j] = temp
       }
-      this.currentQuestion.push(array)
+      this.currentQuestion = array
       console.log(this.currentQuestion)
     }
 

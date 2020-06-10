@@ -14,14 +14,20 @@ const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
 
 let newGame;
+let player;
 
 
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
-  //if currentUser, showLoggedInView or else
-  startGame()
+  //load user properties from sessionStorage + assigns to player
+  player = currentUser()
+  if (!!player){
+  //if player can be populated with sessionStorage variables,
+  //then create instance of User with those variables
+    User.current_player = new User(player)
+    showLoggedInView()
+  }
 })
-
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -33,10 +39,16 @@ loginForm.addEventListener('submit', (e) => {
   loginUser()
 })
 
+//You have to use User.current_player, because getGameHistory only works on instances of User Object
 profileBtn.addEventListener('click',(e) => {
   e.preventDefault()
   User.current_player.getGameHistory()
 })
+
+startBtn.addEventListener('click', () => {
+  updatePercentView("--")
+   newGame = new Game()
+ })
 
 
 contBtn.addEventListener('click', () => {
@@ -51,12 +63,7 @@ form.addEventListener('submit', (event) => {
 })
 
 
-function startGame(){
- startBtn.addEventListener('click', () => {
-   updatePercentView("--")
-    newGame = new Game()
-  })
-}
+
 
 
 function getRadioVal(form, name) {
@@ -105,7 +112,8 @@ function showLoggedInView(){
 
 function logoutAction() {
   loginBtn.addEventListener('click', () => {
-    User.current_player = null
+    player = null
+    sessionStorage.clear()
     loginBtn.innerText = "Login"
     loginBtn.setAttribute('data-open','loginModal')
     profileBtn.classList.add('hide')

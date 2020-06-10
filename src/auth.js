@@ -18,9 +18,13 @@ function loginUser(){
       if (!!user.messages){
         throw new Error(user.messages)
       } else {
-        //let player = new User(user)
-      User.current_player = new User(user)
-      sessionStorage.setItem('player',JSON.stringify(User.current_player))
+        let attr = {
+          email: user.user.email,
+          username: user.user.username,
+          token: user.jwt,
+        }
+       User.current_player = new User(attr)
+       sessionStorage.setItem('player',JSON.stringify(User.current_player ))
     }
         let alertMsg = "Success! You are now logged-in"
         showSuccess(alertMsg)
@@ -58,7 +62,12 @@ function createNewUser(){
        if (!!user.messages){
          throw new Error(user.messages)
        } else {
-        User.current_player = new User(user)
+         let attr = {
+           email: user.user.email,
+           username: user.user.username,
+           token: user.jwt,
+         }
+        User.current_player = new User(attr)
         sessionStorage.setItem('player',JSON.stringify(User.current_player))
        }
          let alertMsg = "Success! You are registered and logged-in."
