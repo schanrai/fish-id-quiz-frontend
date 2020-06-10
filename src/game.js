@@ -60,17 +60,17 @@ class Game {
 // REFACTOR
 
     choiceOne.checked = false
-    choiceOne.value = this.questions.currentQuestion[0][0].id
-    choiceOne.labels[0].innerText = this.questions.currentQuestion[0][0].name
+    choiceOne.value = this.questions.currentQuestion[0].id
+    choiceOne.labels[0].innerText = this.questions.currentQuestion[0].name
     choiceTwo.checked = false
-    choiceTwo.value = this.questions.currentQuestion[0][1].id
-    choiceTwo.labels[0].innerText = this.questions.currentQuestion[0][1].name
+    choiceTwo.value = this.questions.currentQuestion[1].id
+    choiceTwo.labels[0].innerText = this.questions.currentQuestion[1].name
     choiceThree.checked = false
-    choiceThree.value = this.questions.currentQuestion[0][2].id
-    choiceThree.labels[0].innerText = this.questions.currentQuestion[0][2].name
+    choiceThree.value = this.questions.currentQuestion[2].id
+    choiceThree.labels[0].innerText = this.questions.currentQuestion[2].name
     choiceFour.checked = false
-    choiceFour.value = this.questions.currentQuestion[0][3].id
-    choiceFour.labels[0].innerText = this.questions.currentQuestion[0][3].name
+    choiceFour.value = this.questions.currentQuestion[3].id
+    choiceFour.labels[0].innerText = this.questions.currentQuestion[3].name
     ++this.questionCounter
     console.log("current question", this.questions.currentQuestion)
     counter.firstElementChild.innerText = this.questionCounter

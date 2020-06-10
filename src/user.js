@@ -1,8 +1,8 @@
 class User {
   constructor(attr){ //email, username, token)
-    this.email = attr.user.email;
-    this.username = attr.user.username;
-    this.token = attr.jwt;
+    this.email = attr.email;
+    this.username = attr.username;
+    this.token = attr.token;
     User.current_player = undefined
   }
 
@@ -40,15 +40,9 @@ saveScore(finalScore){
 
  getGameHistory(){
     let headers = {}
-    debugger
-    let player = currentUser()
-    //refactor below to if (player)
-    //should you make the above global so you don't have to keep calling it again and again? Keep it DRY
-    //or should I carry on using User.current_player and just populate it in the event of a page reload?
-      if (!!player){
+      if (!!User.current_player){
       headers = {
         'Content-type': 'application/json',
-        //'Authorization': `Bearer ${player.token}`
         'Authorization': `Bearer ${User.current_player.token}`
       }
     }
@@ -73,6 +67,4 @@ saveScore(finalScore){
   }
 
 
-
-//END USER CLASS
 }
