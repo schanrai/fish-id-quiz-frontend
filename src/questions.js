@@ -25,15 +25,19 @@ class Questions {
 
     //Select 4 choices of possible answers for the currentQuestion and identify the correctChoice
     selectChoicesForTurn(fish, questionset) {
+      console.log("inside the selectChoicesForTurn fn")
       console.log("line 28 allfishies plus questionset(3)",fish, questionset)
       //shift should remove element from the questionSet array
       this.correctChoice = questionset.shift()
       let choices = []
+      console.log("choices", choices)
       choices.push(this.correctChoice);
       let idx = fish.findIndex(x => x.name === this.correctChoice.name);
       const removed = fish.splice(idx,1); //removes it out of main fish array(property of questions) so that it won't be selected as one of the choices
       let results = fish.filter(x =>  x.category === this.correctChoice.category) // finds all the same-category fish  from fish array
+      console.log("results", results)
       let count = 3 - results.length
+      console.log("count", count)
       if (count > 0) {
        let noneFish = fish.filter(x =>  x.category === "None") //if less than 3 from same category, then supplement with fish from None category
         for (let i = 0; i < count; i++){
@@ -52,7 +56,7 @@ class Questions {
       if (this.currentQuestion.length > 0){
         this.currentQuestion.length = 0
       }
-      debugger
+      //debugger
       console.log("line 55, array emptied", this.currentQuestion)
       for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));

@@ -106,7 +106,7 @@ class Game {
     //startContBtn.setAttribute('name','continue')
     if (this.questions.questionSet.length == 0){
       this.endGame()
-    } else {
+    return
       //continueGame.apply(this)
       this.continueGame()
     }
