@@ -32,6 +32,7 @@ class Game {
           throw new Error(fishDataJSON.messages)
           return
         }
+        //when new instance of Questions Class created, all that questions logic fires off
         this.questions = new Questions(fishDataJSON)
         form.classList.remove('hide')
         this.newTurn()
@@ -95,6 +96,7 @@ class Game {
     scorePercentage = this.scorePercent(this.score)
     updatePercentView(scorePercentage)
     this.answerView()
+
   }
 
 
@@ -105,11 +107,12 @@ class Game {
     contBtn.classList.remove('hide')
     //startContBtn.setAttribute('name','continue')
     if (this.questions.questionSet.length == 0){
+      //do a setTimeout on endGame?
       this.endGame()
-    return
-      //continueGame.apply(this)
-      this.continueGame()
+      return
     }
+      //continueGame.apply(this)
+    this.continueGame()
   }
 
   continueGame(){

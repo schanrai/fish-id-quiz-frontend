@@ -1,5 +1,5 @@
 const BASE_URL = 'http://localhost:3000/api/v1';
-const numTurns = 3
+const numTurns = 5
 
 const mainPrompt = document.querySelector('#prompt')
 const startBtn = document.querySelector('#start')
