@@ -14,13 +14,13 @@ const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
 
 let newGame;
-let player;
+//let player;
 
 
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
   //load user properties from sessionStorage + assigns to player
-  player = currentUser()
+  let player = currentUser()
   if (!!player){
   //if player can be populated with sessionStorage variables,
   //then create instance of User with those variables
