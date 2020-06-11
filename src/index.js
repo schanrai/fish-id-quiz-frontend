@@ -1,5 +1,5 @@
 const BASE_URL = 'http://localhost:3000/api/v1';
-const numTurns = 3
+const numTurns = 5
 
 const mainPrompt = document.querySelector('#prompt')
 const startBtn = document.querySelector('#start')
@@ -13,7 +13,7 @@ const loginBtn = document.querySelector("#login-btn")
 const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
 
-let newGame;
+//let newGame;
 //let player;
 
 
@@ -47,19 +47,20 @@ profileBtn.addEventListener('click',(e) => {
 
 startBtn.addEventListener('click', () => {
   updatePercentView("--")
-   newGame = new Game()
+   Game.newGame = new Game()
+   Game.newGame.gameFetch()
  })
 
 
 contBtn.addEventListener('click', () => {
-  newGame.newTurn()
+  Game.newGame.newTurn()
 })
 
 
 form.addEventListener('submit', (event) => {
   event.preventDefault()
   let radioVal = getRadioVal(form, 'choices')
-  newGame.checkAnswer(radioVal)
+  Game.newGame.checkAnswer(radioVal)
 })
 
 

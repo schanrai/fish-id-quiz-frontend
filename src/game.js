@@ -4,7 +4,7 @@ class Game {
    this.score = 0
    this.questionCounter = 0
    this.questions = {}
-   this.gameFetch()
+   Game.newGame = undefined
   }
 
  scorePercent(score){
@@ -32,6 +32,7 @@ class Game {
           throw new Error(fishDataJSON.messages)
           return
         }
+        //when new instance of Questions Class created, all that questions logic fires off
         this.questions = new Questions(fishDataJSON)
         form.classList.remove('hide')
         this.newTurn()
@@ -72,7 +73,7 @@ class Game {
     choiceFour.value = this.questions.currentQuestion[3].id
     choiceFour.labels[0].innerText = this.questions.currentQuestion[3].name
     ++this.questionCounter
-    console.log("current question", this.questions.currentQuestion)
+    console.log("currentQuestion inside newTurn fn", this.questions.currentQuestion)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${this.questions.correctChoice.image_url}`
@@ -84,7 +85,8 @@ class Game {
     let scorePercentage
       if (radioVal == this.questions.correctChoice.id){
         //correct
-        ++newGame.score
+        ++this.score
+        //changed above from newGame.score
         //save score to sessionStorage
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
@@ -94,6 +96,7 @@ class Game {
     scorePercentage = this.scorePercent(this.score)
     updatePercentView(scorePercentage)
     this.answerView()
+
   }
 
 
@@ -104,11 +107,12 @@ class Game {
     contBtn.classList.remove('hide')
     //startContBtn.setAttribute('name','continue')
     if (this.questions.questionSet.length == 0){
+      //do a setTimeout on endGame?
       this.endGame()
-    } else {
-      //continueGame.apply(this)
-      this.continueGame()
+      return
     }
+      //continueGame.apply(this)
+    this.continueGame()
   }
 
   continueGame(){
@@ -128,10 +132,10 @@ class Game {
     let finalScore = this.scorePercent(this.score)
     User.current_player.saveScore(finalScore)
       if (this.score >= (this.questionCounter/2)){
-        mainPrompt.innerHTML = `<i class="far fa-thumbs-up"></i> Well done! You scored ${newGame.scorePercent(this.score)}%`
+        mainPrompt.innerHTML = `<i class="far fa-thumbs-up"></i> Well done! You scored ${this.scorePercent(this.score)}%`
         subPrompt.innerText ="Why not play another game?"
       } else {
-        mainPrompt.innerHTML = `<i class="far fa-thumbs-down"></i> Oh dear! You scored ${newGame.scorePercent(this.score)}%`
+        mainPrompt.innerHTML = `<i class="far fa-thumbs-down"></i> Oh dear! You scored ${this.scorePercent(this.score)}%`
         subPrompt.innerText ="Why not play another game?"
       }
     }
