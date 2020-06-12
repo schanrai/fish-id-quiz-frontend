@@ -49,8 +49,8 @@ class Questions {
       } else {
         choices.push(results[0], results[1], results[2]) //push in first 3 results of same category find to populate questions
         console.log("line 45, before sent to shuffleQuestions",choices)
-        this.shuffleQuestions(choices)
       }
+      this.shuffleQuestions(choices)
     }
 
     //Shuffle elements in the choices array so correctChoice in different positions
