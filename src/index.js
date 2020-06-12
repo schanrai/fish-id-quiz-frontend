@@ -39,7 +39,7 @@ loginForm.addEventListener('submit', (e) => {
   loginUser()
 })
 
-//You have to use User.current_player, because getGameHistory only works on instances of User Object
+
 profileBtn.addEventListener('click',(e) => {
   e.preventDefault()
   User.current_player.getGameHistory()

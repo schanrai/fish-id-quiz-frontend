@@ -59,7 +59,6 @@ class Questions {
       if (this.currentQuestion.length > 0){
         this.currentQuestion.splice(0, this.currentQuestion.length)
       }
-      debugger
       console.log("line 62, array emptied", this.currentQuestion)
       for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));

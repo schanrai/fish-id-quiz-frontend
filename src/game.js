@@ -39,7 +39,7 @@ class Game {
         }
       )
       .catch((error) => {
-        // console.error(error)
+        console.error(error)
         const alertMsg = error
         showAlert(alertMsg)
       })
@@ -59,7 +59,6 @@ class Game {
     let choiceThree = document.querySelector('#choiceThree')
     let choiceFour = document.querySelector('#choiceFour')
 // REFACTOR
-
     choiceOne.checked = false
     choiceOne.value = this.questions.currentQuestion[0].id
     choiceOne.labels[0].innerText = this.questions.currentQuestion[0].name
@@ -77,9 +76,17 @@ class Game {
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${this.questions.correctChoice.image_url}`
+    this.updateProgress()
     //can you use array destrucring and iteration to assign these?
   }
 
+  updateProgress(){
+    let progressPercent = (this.questionCounter / numTurns) * 100
+    const progressMeter = document.querySelector(".progress-meter")
+    progressMeter.style.width = `${progressPercent}%`
+    const progressBar = document.querySelector(".progress.warning")
+    progressBar.ariaValueNow = `${progressPercent}`
+  }
 
   checkAnswer(radioVal){
     let scorePercentage
