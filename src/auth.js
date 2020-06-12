@@ -89,3 +89,7 @@ function createNewUser(){
 const currentUser = () => {
   return JSON.parse(sessionStorage.getItem('player'))
 }
+
+const currentGame = () => {
+  return JSON.parse(sessionStorage.getItem('game'))
+}

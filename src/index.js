@@ -13,21 +13,30 @@ const loginBtn = document.querySelector("#login-btn")
 const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
 
-//let newGame;
-//let player;
-
-
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
   //load user properties from sessionStorage + assigns to player
-  let player = currentUser()
-  if (!!player){
-  //if player can be populated with sessionStorage variables,
-  //then create instance of User with those variables
+  let player = currentUser();
+  let game = currentGame();
+  if (!!player && !!game){
+    User.current_player = new User(player)
+    Game.newGame = new Game
+    Game.newGame.score = game.score
+    Game.newGame.questionCounter = game.questionCounter
+    Game.newGame.questions = game.questions
+    showLoggedInView()
+    Game.newGame.newTurn()
+    //the problem occurs in line 129 of game.js
+    //that function can only run on a Questions object, which gets embeded on the Game instance upon creation, it's lost when you stringify it for sessionStorage
+    //the question constructor is also built to expect a big array as well in the argument
+  } else if (!!player) {
     User.current_player = new User(player)
     showLoggedInView()
+  } else {
+  return
   }
 })
+
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault()
