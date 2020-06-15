@@ -60,7 +60,7 @@ saveScore(finalScore){
        }
      )
      .catch((error) => {
-       // console.error(error)
+       console.error(error)
        const alertMsg = error
        showAlert(alertMsg)
      })

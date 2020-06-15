@@ -13,9 +13,10 @@ const loginBtn = document.querySelector("#login-btn")
 const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
 
+
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
-  //load user properties from sessionStorage + assigns to player
+  //load user properties from sessionStorage + assigns to player + game if page reloads
   let player = currentUser();
   let game = currentGame();
   if (!!player && !!game){
@@ -23,13 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
     Game.newGame = new Game
     Game.newGame.score = game.score
     Game.newGame.questionCounter = game.questionCounter
+    //selectChoicesForTurn can only run on a Questions object, which gets encapsulated into the Game object, it's lost when you stringify it for sessionStorage - so you have to reinstanciate a Questions object
     Game.newGame.questions = new Questions(game.questions.fish)
     Game.newGame.questions.correctChoice = game.questions.correctChoice
     Game.newGame.questions.currentQuestion = game.questions.currentQuestion
     Game.newGame.questions.questionSet = game.questions.questionSet
     showLoggedInView()
     Game.newGame.newTurn()
-    //that function can only run on a Questions object, which gets embeded on the Game instance upon creation, it's lost when you stringify it for sessionStorage
+
   } else if (!!player) {
     User.current_player = new User(player)
     showLoggedInView()
@@ -74,9 +76,6 @@ form.addEventListener('submit', (event) => {
   let radioVal = getRadioVal(form, 'choices')
   Game.newGame.checkAnswer(radioVal)
 })
-
-
-
 
 
 function getRadioVal(form, name) {

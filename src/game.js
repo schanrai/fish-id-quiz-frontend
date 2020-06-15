@@ -32,7 +32,6 @@ class Game {
           throw new Error(fishDataJSON.messages)
           return
         }
-        //when new instance of Questions Class created, all that questions logic fires off
         this.questions = new Questions(fishDataJSON)
         this.newTurn()
         }
@@ -71,8 +70,6 @@ class Game {
     choiceFour.checked = false
     choiceFour.value = this.questions.currentQuestion[3].id
     choiceFour.labels[0].innerText = this.questions.currentQuestion[3].name
-    //++this.questionCounter
-    console.log("currentQuestion inside newTurn fn", this.questions.currentQuestion)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${this.questions.correctChoice.image_url}`
@@ -94,7 +91,6 @@ class Game {
       if (radioVal == this.questions.correctChoice.id){
         //correct
         ++this.score
-        //save score to sessionStorage
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
         //incorrect
