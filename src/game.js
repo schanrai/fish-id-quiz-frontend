@@ -71,7 +71,7 @@ class Game {
     choiceFour.checked = false
     choiceFour.value = this.questions.currentQuestion[3].id
     choiceFour.labels[0].innerText = this.questions.currentQuestion[3].name
-    ++this.questionCounter
+    //++this.questionCounter
     console.log("currentQuestion inside newTurn fn", this.questions.currentQuestion)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
@@ -114,7 +114,6 @@ class Game {
     contBtn.classList.remove('hide')
     //startContBtn.setAttribute('name','continue')
     if (this.questions.questionSet.length == 0){
-      debugger
       //do a setTimeout on endGame?
       this.endGame()
       return
@@ -124,7 +123,6 @@ class Game {
   }
 
   continueGame(){
-    debugger
     console.log("inside the continueGame method")
      this.questions.selectChoicesForTurn(
        this.questions.fish, this.questions.questionSet)

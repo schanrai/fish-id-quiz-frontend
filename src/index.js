@@ -23,12 +23,13 @@ document.addEventListener('DOMContentLoaded', () => {
     Game.newGame = new Game
     Game.newGame.score = game.score
     Game.newGame.questionCounter = game.questionCounter
-    Game.newGame.questions = game.questions
+    Game.newGame.questions = new Questions(game.questions.fish)
+    Game.newGame.questions.correctChoice = game.questions.correctChoice
+    Game.newGame.questions.currentQuestion = game.questions.currentQuestion
+    Game.newGame.questions.questionSet = game.questions.questionSet
     showLoggedInView()
     Game.newGame.newTurn()
-    //the problem occurs in line 129 of game.js
     //that function can only run on a Questions object, which gets embeded on the Game instance upon creation, it's lost when you stringify it for sessionStorage
-    //the question constructor is also built to expect a big array as well in the argument
   } else if (!!player) {
     User.current_player = new User(player)
     showLoggedInView()
@@ -57,11 +58,13 @@ profileBtn.addEventListener('click',(e) => {
 startBtn.addEventListener('click', () => {
   updatePercentView("--")
    Game.newGame = new Game()
+   ++Game.newGame.questionCounter
    Game.newGame.gameFetch()
  })
 
 
 contBtn.addEventListener('click', () => {
+  ++Game.newGame.questionCounter
   Game.newGame.newTurn()
 })
 
