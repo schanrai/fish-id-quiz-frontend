@@ -13,21 +13,31 @@ const loginBtn = document.querySelector("#login-btn")
 const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
 
-//let newGame;
-//let player;
-
-
 //VIEWS + LISTENERS
 document.addEventListener('DOMContentLoaded', () => {
   //load user properties from sessionStorage + assigns to player
-  let player = currentUser()
-  if (!!player){
-  //if player can be populated with sessionStorage variables,
-  //then create instance of User with those variables
+  let player = currentUser();
+  let game = currentGame();
+  if (!!player && !!game){
+    User.current_player = new User(player)
+    Game.newGame = new Game
+    Game.newGame.score = game.score
+    Game.newGame.questionCounter = game.questionCounter
+    Game.newGame.questions = new Questions(game.questions.fish)
+    Game.newGame.questions.correctChoice = game.questions.correctChoice
+    Game.newGame.questions.currentQuestion = game.questions.currentQuestion
+    Game.newGame.questions.questionSet = game.questions.questionSet
+    showLoggedInView()
+    Game.newGame.newTurn()
+    //that function can only run on a Questions object, which gets embeded on the Game instance upon creation, it's lost when you stringify it for sessionStorage
+  } else if (!!player) {
     User.current_player = new User(player)
     showLoggedInView()
+  } else {
+  return
   }
 })
+
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -48,11 +58,13 @@ profileBtn.addEventListener('click',(e) => {
 startBtn.addEventListener('click', () => {
   updatePercentView("--")
    Game.newGame = new Game()
+   ++Game.newGame.questionCounter
    Game.newGame.gameFetch()
  })
 
 
 contBtn.addEventListener('click', () => {
+  ++Game.newGame.questionCounter
   Game.newGame.newTurn()
 })
 

@@ -34,7 +34,6 @@ class Game {
         }
         //when new instance of Questions Class created, all that questions logic fires off
         this.questions = new Questions(fishDataJSON)
-        form.classList.remove('hide')
         this.newTurn()
         }
       )
@@ -48,6 +47,7 @@ class Game {
 
 
   newTurn(){
+    form.classList.remove('hide')
     subPrompt.classList.add('hide')
     contBtn.classList.add('hide')
     startBtn.classList.add('hide')
@@ -71,11 +71,12 @@ class Game {
     choiceFour.checked = false
     choiceFour.value = this.questions.currentQuestion[3].id
     choiceFour.labels[0].innerText = this.questions.currentQuestion[3].name
-    ++this.questionCounter
+    //++this.questionCounter
     console.log("currentQuestion inside newTurn fn", this.questions.currentQuestion)
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${this.questions.correctChoice.image_url}`
+    sessionStorage.setItem('game',JSON.stringify(Game.newGame))
     this.updateProgress()
     //can you use array destrucring and iteration to assign these?
   }
@@ -93,7 +94,6 @@ class Game {
       if (radioVal == this.questions.correctChoice.id){
         //correct
         ++this.score
-        //changed above from newGame.score
         //save score to sessionStorage
         mainPrompt.innerHTML = `<i class="far fa-check-circle"></i> Well done! You are correct`
       } else {
@@ -124,7 +124,6 @@ class Game {
 
   continueGame(){
     console.log("inside the continueGame method")
-    //if you already have something in storage then pick it up
      this.questions.selectChoicesForTurn(
        this.questions.fish, this.questions.questionSet)
  }
@@ -138,6 +137,7 @@ class Game {
     form.classList.add('hide')
     let finalScore = this.scorePercent(this.score)
     User.current_player.saveScore(finalScore)
+    sessionStorage.removeItem('game')
       if (this.score >= (this.questionCounter/2)){
         mainPrompt.innerHTML = `<i class="far fa-thumbs-up"></i> Well done! You scored ${this.scorePercent(this.score)}%`
         subPrompt.innerText ="Why not play another game?"
