@@ -145,14 +145,15 @@ function renderProfile(gameHistoryJSON){
   calcUserStats(gameHistoryJSON)
   const score =  document.querySelector('#score')
   const date =  document.querySelector('#date')
-  gameHistoryJSON.map(x => {
-    var d = new Date(x.created_at)
-    var n = d.toLocaleDateString()
-    score.innerHTML += `<li>${x.score}</li>`
-    date.innerHTML += `<li>${n}</li>`
-      })
-    }
+  const lastTen = gameHistoryJSON.slice(-10)
+    lastTen.map(x => {
+      var d = new Date(x.created_at)
+      var n = d.toLocaleDateString()
+      score.innerHTML += `<li>${x.score}</li>`
+      date.innerHTML += `<li>${n}</li>`
+    })
   }
+}
 
 function calcUserStats(gameHistoryJSON){
   let result
