@@ -108,13 +108,11 @@ class Game {
     subPrompt.classList.remove('hide')
     subPrompt.innerHTML =`Learn more about this fish <a href="${this.questions.correctChoice.details_url}" target="_blank">here.</a>`
     contBtn.classList.remove('hide')
-    //startContBtn.setAttribute('name','continue')
     if (this.questions.questionSet.length == 0){
       //do a setTimeout on endGame?
       this.endGame()
       return
     }
-      //continueGame.apply(this)
     this.continueGame()
   }
 

@@ -22,7 +22,7 @@
 
       <div id="topbar-responsive" class="topbar-responsive-links">
         <div class="top-bar-right">
-          <!-- if user logged in then show Hi user whatever -->
+          <!-- if user logged in then Profile button -->
           <ul class="menu vertical medium-horizontal">
             <!-- Profile button-->
             <li>
@@ -62,6 +62,7 @@
         <input class="button expanded" type="submit" id="signup" value="Signup">
       </form>
     </div>
+
     <!-- Log-in modal -->
     <div class="tiny reveal" id="loginModal" data-reveal>
       <form class="text-center">
@@ -75,7 +76,7 @@
           <input type="password" id="pass-login" name="password input" placeholder="Password">
         </div>
         <div class="text-left">
-          <input id="show-password" type="checkbox"><label for="show-password">Show password</label>
+          <input id="show-password" type="checkbox" onclick="showPassword()"><label for="show-password">Show password</label>
         </div>
         <input class="button expanded" type="submit" id="login" value="Login">
       </form>

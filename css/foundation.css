@@ -2521,16 +2521,16 @@ ul.no-bullet, ol.no-bullet {
     color: #fefefe; }
   .button.success, .button.success.disabled, .button.success[disabled], .button.success.disabled:hover, .button.success[disabled]:hover, .button.success.disabled:focus, .button.success[disabled]:focus {
     background-color: #11D3BC;
-    color: #0a0a0a; }
+    color: #fefefe; }
   .button.success:hover, .button.success:focus {
     background-color: #2beed7;
-    color: #0a0a0a; }
+    color: #fefefe; }
   .button.warning, .button.warning.disabled, .button.warning[disabled], .button.warning.disabled:hover, .button.warning[disabled]:hover, .button.warning.disabled:focus, .button.warning[disabled]:focus {
     background-color: #ffd966;
-    color: #0a0a0a; }
+    color: #fefefe; }
   .button.warning:hover, .button.warning:focus {
     background-color: #ffcc33;
-    color: #0a0a0a; }
+    color: #fefefe; }
   .button.alert, .button.alert.disabled, .button.alert[disabled], .button.alert.disabled:hover, .button.alert[disabled]:hover, .button.alert.disabled:focus, .button.alert[disabled]:focus {
     background-color: #F67280;
     color: #fefefe; }

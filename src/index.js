@@ -162,3 +162,12 @@ function calcUserStats(gameHistoryJSON){
   quizzes.innerText = `Quizzes taken: ${gameHistoryJSON.length}`
   highScore.innerText = `High score: ${result}`
 }
+
+function showPassword(){
+  const x = document.getElementById("pass-login");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
