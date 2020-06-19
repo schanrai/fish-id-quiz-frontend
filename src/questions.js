@@ -9,11 +9,11 @@ class Questions {
     this.getRandomQuestionsFromArray(numTurns)
     }
 
-    //Return 20 random fish objects from fish property array
-    getRandomQuestionsFromArray(numItems) {
-      while (this.questionSet.length < numItems) {
+    //Return 5 random fish objects from fish property array
+    getRandomQuestionsFromArray(numTurns) {
+      while (this.questionSet.length < numTurns) {
         const index = Math.floor(Math.random() * this.fish.length);
-        const element = this.fish.slice(index)[0]; //note that this is non-destructive, leaves the fish array at 134
+        const element = this.fish.slice(index)[0]; //note that this is non-destructive, leaves the fish array at 130
         if (this.questionSet.includes(element)){ // looks to see if questionSet array already has same fish element
           continue //this will skip forward and go back into the loop
         } else {
@@ -30,14 +30,11 @@ class Questions {
       //shift should remove element from the questionSet array
       this.correctChoice = questionset.shift()
       let choices = []
-      console.log("choices", choices)
       choices.push(this.correctChoice);
       let idx = fish.findIndex(x => x.name === this.correctChoice.name);
       const removed = fish.splice(idx,1); //removes it out of main fish array(property of questions) so that it won't be selected as one of the choices
       let results = fish.filter(x =>  x.category === this.correctChoice.category) // finds all the same-category fish  from fish array
-      console.log("results", results)
       let count = 3 - results.length
-      console.log("count", count)
       if (count > 0) {
        let noneFish = fish.filter(x =>  x.category === "None") //if less than 3 from same category, then supplement with fish from None category
         for (let i = 0; i < count; i++){
@@ -46,7 +43,6 @@ class Questions {
        choices = [...choices, ...results]; //combine noneFish and samefish category
       } else {
         choices.push(results[0], results[1], results[2]) //push in first 3 results of same category find to populate questions
-        console.log("line 45, before sent to shuffleQuestions",choices)
       }
       this.shuffleQuestions(choices)
     }

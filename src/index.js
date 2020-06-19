@@ -80,7 +80,6 @@ form.addEventListener('submit', (event) => {
 
 function getRadioVal(form, name) {
     let val;
-// REFACTOR
     // get list of radio buttons with specified name
     const radios = form.elements[name];
     // loop through list of radio buttons
