@@ -83,7 +83,7 @@ function getRadioVal(form, name) {
     // get list of radio buttons with specified name
     const radios = form.elements[name];
     // loop through list of radio buttons
-    for (var i=0; i < radios.length; i++) {
+    for (let i=0; i < radios.length; i++) {
         if (radios[i].checked ) { // radio checked?
             val = radios[i].value; // if so, hold its value (fish id) in val
             break; // and break out of for loop
@@ -146,8 +146,8 @@ function renderProfile(gameHistoryJSON){
   const date =  document.querySelector('#date')
   const lastTen = gameHistoryJSON.slice(-10)
     lastTen.map(x => {
-      var d = new Date(x.created_at)
-      var n = d.toLocaleDateString()
+      let d = new Date(x.created_at)
+      let n = d.toLocaleDateString()
       score.innerHTML += `<li>${x.score}</li>`
       date.innerHTML += `<li>${n}</li>`
     })

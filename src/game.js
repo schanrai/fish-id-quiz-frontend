@@ -1,4 +1,5 @@
 class Game {
+  //newGame = undefined
 
  constructor() {
    this.score = 0
