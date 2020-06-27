@@ -1,5 +1,4 @@
 class Game {
-  //newGame = undefined
 
  constructor() {
    this.score = 0
@@ -52,31 +51,24 @@ class Game {
     contBtn.classList.add('hide')
     startBtn.classList.add('hide')
     submitBtn.classList.remove('hide')
+    let choices = []
     const counter = document.querySelector('#question-count')
     const image = document.querySelector('img')
     let choiceOne = document.querySelector('#choiceOne')
     let choiceTwo = document.querySelector('#choiceTwo')
     let choiceThree = document.querySelector('#choiceThree')
     let choiceFour = document.querySelector('#choiceFour')
-// REFACTOR
-    choiceOne.checked = false
-    choiceOne.value = this.questions.currentQuestion[0].id
-    choiceOne.labels[0].innerText = this.questions.currentQuestion[0].name
-    choiceTwo.checked = false
-    choiceTwo.value = this.questions.currentQuestion[1].id
-    choiceTwo.labels[0].innerText = this.questions.currentQuestion[1].name
-    choiceThree.checked = false
-    choiceThree.value = this.questions.currentQuestion[2].id
-    choiceThree.labels[0].innerText = this.questions.currentQuestion[2].name
-    choiceFour.checked = false
-    choiceFour.value = this.questions.currentQuestion[3].id
-    choiceFour.labels[0].innerText = this.questions.currentQuestion[3].name
+    choices.push(choiceOne, choiceTwo, choiceThree, choiceFour)
+    for (let i = 0; i < choices.length; i++){
+      choices[i].checked = false;
+      choices[i].value = this.questions.currentQuestion[i].id;
+      choices[i].labels[0].innerText = this.questions.currentQuestion[i].name;
+    }
     counter.firstElementChild.innerText = this.questionCounter
     mainPrompt.innerText = "What fish is this?"
     image.src = `${this.questions.correctChoice.image_url}`
     sessionStorage.setItem('game',JSON.stringify(Game.newGame))
     this.updateProgress()
-    //can you use array destrucring and iteration to assign these?
   }
 
   updateProgress(){
