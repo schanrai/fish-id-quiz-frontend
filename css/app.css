@@ -1,7 +1,4 @@
-/* this is the clearfix */
-/* .group {
-  display: flow-root;
-} */
+
 
 .group p {
   margin-bottom: 0;
@@ -98,7 +95,7 @@ a.topbar-responsive-logo h3 {
 }
 
 
-/* copied from block on fsite */
+/* copied from responsive nav bar block on fsite */
 .topbar-responsive {
   background: #07689F;
   padding: 0rem 1rem;
@@ -240,4 +237,15 @@ a.topbar-responsive-logo h3 {
             animation: fadeIn 1s ease-in;
   }
 
+}
+
+/* copied from responsive footer bar block on fsite */
+.holy-grail-footer {
+  padding: 0.2rem;
+  border: 1px solid #ededed;
+  background-color: #ededed;
+}
+
+footer p {
+  font-size: 0.75em;
 }
