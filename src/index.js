@@ -12,6 +12,7 @@ const loginForm = document.querySelector("#loginModal")
 const loginBtn = document.querySelector("#login-btn")
 const signupBtn = document.querySelector('#signup-btn')
 const profileBtn = document.querySelector('#profile-btn')
+const sortBtn = document.querySelector('#sort-btn')
 
 
 //VIEWS + LISTENERS
@@ -40,6 +41,48 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
+sortBtn.addEventListener('click', (e) => {
+  let headers = {}
+  if (!!User.current_player){
+    headers = {
+      'Content-type': 'application/json',
+      'Authorization': `Bearer ${User.current_player.token}`
+    }
+  }
+   fetch(`${BASE_URL}/fish`, {
+     method: 'GET',
+     headers: headers,
+      })
+    .then(resp => resp.json())
+    .then(fishDataJSON => {
+      sorty(fishDataJSON)
+      renderSortModal(fishDataJSON)
+      })
+})
+
+function sorty(fishDataJSON){
+    fishDataJSON.sort(function(a, b) {
+    var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+    var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+    if (nameA < nameB) {
+      return -1;
+    }
+    if (nameA > nameB) {
+      return 1;
+    }
+    return 0;
+  })
+}
+
+function renderSortModal(sortedFish){
+  const fishName =  document.querySelector('#fishname')
+  fishName.innerHTML = ""
+    sortedFish.forEach(x => {
+      fishName.innerHTML += `<li>${x.name}</li>`
+    })
+  }
+
+
 
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault()
@@ -53,7 +96,7 @@ loginForm.addEventListener('submit', (e) => {
 
 
 profileBtn.addEventListener('click',(e) => {
-  e.preventDefault()
+  //e.preventDefault()
   User.current_player.getGameHistory()
 })
 

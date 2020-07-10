@@ -28,6 +28,10 @@
         <div class="top-bar-right">
           <!-- if user logged in then Profile button -->
           <ul class="menu vertical medium-horizontal">
+          <!-- Sort button-->
+            <li>
+              <button type="button" class= "button hollow topbar-responsive-button" id ="sort-btn" data-open="sortModal"  class="">Sort</button>
+            </li>
             <!-- Profile button-->
             <li>
               <button type="button" class= "hide button hollow topbar-responsive-button" id ="profile-btn" data-open="profileModal" class="">Profile</button>
@@ -108,8 +112,25 @@
           </ul>
         </div>
       </div>
+    </div>
 
 
+    <!-- Sort modal -->
+    <div class="tiny reveal" id="sortModal" data-reveal>
+      <div class="text-center">
+        <h2>All Fish</h2>
+        <!-- <p id="quizzes-total"> Quizzes taken: 0</small></p>
+        <p id="high-score"> High Score: 0</small></p> -->
+        <hr>
+      </div>
+      <div class="grid-x grid-margin-x">
+        <div class="cell text-center">
+        <h5>Name</h5>
+          <ul id="fishname" style="list-style-type:none;">
+          </ul>
+
+        </div>
+      </div>
     </div>
 
 
